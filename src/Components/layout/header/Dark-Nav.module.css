@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    border: 2px solid red;
+    height: 100%;
+    margin: auto;
+}
+
+#dark-header {
+    height: 58px;
+    background-color: #252B42;
+    color: whitesmoke;
+}
+
+.contact,
+.contact .mail,
+.contact .call {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px
+}
+
+.follow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.follow span {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width:1200px) {
+    #dark-header{
+        height: 100%;
+    }
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width:768px) {}
+
+@media (max-width:500px) {
+    #dark-header{
+        display: none;
+    }
+}

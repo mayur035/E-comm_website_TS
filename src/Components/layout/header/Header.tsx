@@ -1,23 +1,12 @@
 import React from 'react'
-import classes from './Header.module.css'
+import DarkNavbar from './Dark-nav'
+import LightNavbar from './Light-Nav'
 
 const Header = () => {
     return (
         <React.Fragment>
-            <section id={classes['dark-header']}>
-                <div className={classes.container}>
-                    <div className={classes.contact}></div>
-                    <div className={classes.offer}></div>
-                    <div className={classes.follow}></div>
-                </div>
-            </section>
-            <section id={classes['light-header']}>
-            <div className={classes.container}>
-                
-            </div>
-            </section>
-
-
+            <DarkNavbar/>
+            <LightNavbar/>
         </React.Fragment>
     )
 }
