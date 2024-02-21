@@ -1,0 +1,17 @@
+#dark-header{
+    height: 58px;
+    background-color: #252B42;
+}
+
+.container{
+    max-width: 1440px;
+    border: 2px solid red;
+    height: 100%;
+    margin: auto;
+}
+
+#light-header{
+    height: 58px;
+    border: 2px solid;
+    margin-top: 10px;
+}
