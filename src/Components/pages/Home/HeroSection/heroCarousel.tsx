@@ -1,12 +1,10 @@
-import React from 'react'
 import Carousel from '../../../UI/Carousel/Carousel'
-import hero_1 from '../../../../Assets/shop-hero-1-product-slide-1.svg'
-import hero_2 from '../../../../Assets/shop-hero-2-product-slide-2.svg'
+import {Assets} from '../../../../Assets/Assets'
 
 const data = {
     "slides": [
         {
-            "src": hero_1,
+            "src": Assets.images.hero1,
             "alt": "Carousel image 1",
             "content":{
                 "heading5":"SUMMER 2020",
@@ -15,7 +13,7 @@ const data = {
             }
         },
         {
-            "src": hero_2,
+            "src":Assets.images.hero2,
             "alt": "Carousel image 2",
             "content":{
                 "heading5":"SUMMER 2022",
@@ -24,7 +22,7 @@ const data = {
             }
         },
         {
-            "src": hero_1,
+            "src": Assets.images.hero1,
             "alt": "Carousel image 1",
             "content":{
                 "heading5":"SUMMER 2021",
