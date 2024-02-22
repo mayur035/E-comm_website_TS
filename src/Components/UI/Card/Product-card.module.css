@@ -1,0 +1,46 @@
+.card-container {
+    border: 2px solid;
+    width: fit-content;
+    height: 615px;
+}
+
+.card-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 25px 25px 35px 25px;
+}
+
+.card-content h5 {
+    color: #252B42;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1;
+    text-align: center;
+
+}
+
+.product-price {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card-content p {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #737373;
+}
+
+.product-price h5 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    text-align: center;
+}

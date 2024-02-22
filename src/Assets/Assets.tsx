@@ -4,6 +4,8 @@ import funckyBoy from './Editor-s-Picks/funckyBoy.svg'
 import swagyGirl from './Editor-s-Picks/swageyGirl.svg'
 import professionalGirl from './Editor-s-Picks/ProfessionalGirl.svg'
 import beachBoy from './Editor-s-Picks/BeachBoy.svg'
+import product_g1 from './product/g1.svg'
+import product_color from './product/product-colors.svg'
 
 export const Assets = 
     {
@@ -14,6 +16,9 @@ export const Assets =
             editorPicks2:swagyGirl,
             editorPicks3:professionalGirl,
             editorPicks4:beachBoy,
+            product_g1:product_g1,
+            product_color:product_color,
+
         }
     }
 
