@@ -1,9 +1,3 @@
-.card-container {
-    border: 2px solid;
-    width: fit-content;
-    height: 615px;
-}
-
 .card-content {
     text-align: center;
     display: flex;

@@ -5,6 +5,13 @@ import swagyGirl from './Editor-s-Picks/swageyGirl.svg'
 import professionalGirl from './Editor-s-Picks/ProfessionalGirl.svg'
 import beachBoy from './Editor-s-Picks/BeachBoy.svg'
 import product_g1 from './product/g1.svg'
+import product_b2 from './product/b2.svg'
+import product_g3 from './product/g3.svg'
+import product_g4 from './product/g4.svg'
+import product_b5 from './product/b5.svg'
+import product_g6 from './product/g6.svg'
+import product_b7 from './product/b7.svg'
+import product_b8 from './product/b8.svg'
 import product_color from './product/product-colors.svg'
 
 export const Assets = 
@@ -18,6 +25,13 @@ export const Assets =
             editorPicks4:beachBoy,
             product_g1:product_g1,
             product_color:product_color,
+            product_b2:product_b2,
+            product_g3:product_g3,
+            product_g4:product_g4,
+            product_b5:product_b5,
+            product_g6:product_g6,
+            product_b7:product_b7,
+            product_b8:product_b8
 
         }
     }

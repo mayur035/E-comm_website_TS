@@ -16,7 +16,7 @@ type cardProps={
 const ProductCard = (props:cardProps) => {
     return (
         <div className={classes['card-container']}>
-            <img src={props.Image.src} alt={props.Image.alt} height='427px' width='239px' />
+            <img src={props.Image.src} alt={props.Image.alt} />
             <div className={classes['card-content']}>
                 <h5>{props.productName}</h5>
                 <p>{props.productCategory}</p>
