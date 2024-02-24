@@ -13,6 +13,7 @@ import product_g6 from './product/g6.svg'
 import product_b7 from './product/b7.svg'
 import product_b8 from './product/b8.svg'
 import product_color from './product/product-colors.svg'
+import winterClothes from'./suggestionSecHome/asian-woman-man-with-winter-clothes.svg'
 
 export const Assets = 
     {
@@ -31,7 +32,8 @@ export const Assets =
             product_b5:product_b5,
             product_g6:product_g6,
             product_b7:product_b7,
-            product_b8:product_b8
+            product_b8:product_b8,
+            winterClothes:winterClothes,
 
         }
     }

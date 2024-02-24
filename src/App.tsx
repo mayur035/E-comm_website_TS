@@ -3,6 +3,8 @@ import EditorPicks from './Components/pages/Home/Editor-s-Picks/Editor-s-picks';
 import Header from './Components/layout/header/Header';
 import HeroCarousel from './Components/pages/Home/HeroSection/heroCarousel';
 import BestProduct from './Components/pages/Home/BestSellerProduct/Best-Product';
+import Carousel2 from './Components/pages/Home/Carousel2/Carousel2';
+import SuggestionSec from './Components/pages/Home/randomSuggestion/SuggestionSec';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <HeroCarousel/>
       <EditorPicks/>
       <BestProduct/>
+      <Carousel2/> 
+      <SuggestionSec/>
     </div>
   );
 }

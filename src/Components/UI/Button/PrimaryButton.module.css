@@ -1,0 +1,47 @@
+button {
+    width: 34%;
+    padding: 15px 0px 15px 0px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    text-align: center;
+}
+
+.primary-btn {
+    background-color: #2DC071;
+    border: 1px solid #2DC071;
+}
+
+.primary-btn h3 {
+    color: #ffffff;
+}
+
+
+.secondary-btn {
+    background-color: transparent;
+    border: 1px solid #2DC071;
+}
+
+.secondary-btn h3 {
+    color: #2DC071;
+}
+
+@media (max-width:768px) {
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100px;
+        height: 30px;
+        padding: 0;
+    }
+
+    .primary-btn h3,
+    .secondary-btn h3 {
+        font-size: small;
+    }
+}

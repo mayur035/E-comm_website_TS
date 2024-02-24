@@ -1,46 +1,43 @@
 import { useState } from 'react';
 import classes from './Carousel.module.css';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import Slides from './Slides';
 
-type CarouselContentProps = {
-    contentCarousel: { 
-        src: string; 
-        alt: string;
-        content:{
-            heading5:string;
-            heading1:string;
-            heading4:string;
-        }
-    }[];
-}
-
-const Carousel = (props:CarouselContentProps) => {
-    const [slide, setSlide] = useState(0)
-
-    const next_Slide = () => {
-        setSlide(slide === props.contentCarousel.length - 1 ? 0 : slide + 1);
+type CarouselData={
+        carouselData: {
+            slides: {
+                src: string;
+                alt: string;
+                content: {
+                    heading5: string;
+                    heading1: string;
+                    heading4: string;
+                };
+            }[];
+        };
+    };
+const Carousel = (props:CarouselData) => {
+    const [currentSlide, setCurrentSlide] = useState(0);
+    
+    const nextSlide = () => {
+        const totalSlides = props.carouselData.slides.length;
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
     };
 
-    const prev_Slide = () => {
-        setSlide(slide === 0 ? props.contentCarousel.length - 1 : slide - 1);
+    const prevSlide = () => {
+        const totalSlides = props.carouselData.slides.length;
+        setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);         
     };
+    
+             
 
     return (
-        <div className={classes.carousel}>
-            <ChevronLeft className={`${classes.arrow} ${classes["left-chevron"]}`} onClick={prev_Slide} />
-            {props.contentCarousel.map((item, index) => (
-                <div key={index} className={`${classes.slide} ${slide === index ? '' : classes['slide-hidden']}`}>
-                    <div className={classes["carousel-control"]}>
-                        <div className={classes["carousel-content-inner"]} >
-                            <h5>{item.content.heading5}</h5>
-                            <h1>{item.content.heading1}</h1>
-                            <h4>{item.content.heading4}</h4>
-                        </div>
-                    </div>
-                    <img src={item.src} alt={item.alt} className={classes.slide} />
-                </div>
-            ))}
-            <ChevronRight className={`${classes.arrow} ${classes["right-chevron"]}`} onClick={next_Slide} />
+        <div className={classes['carousel-container']}>
+            <ChevronLeft className={`${classes.arrow} ${classes["left-chevron"]}`}  onClick={prevSlide}/>
+            <ChevronRight className={`${classes.arrow} ${classes["right-chevron"]}`}  onClick={nextSlide} />
+            <div className={classes.slides}>
+                <Slides contentCarousel={props.carouselData.slides[currentSlide]} currentSlide={currentSlide}/>
+            </div>
         </div>
     )
 }
