@@ -18,21 +18,6 @@
     margin-top: 10px;
 }
 
-.logo {
-    display: flex;
-    width: 187px;
-    align-items: center;
-}
-
-.logo h3 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    letter-spacing: 0.8px;
-    text-align: left;
-    color: #252B42;
-}
-
 .menu{
     display: flex;
     justify-content: space-between;

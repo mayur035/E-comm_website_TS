@@ -1,0 +1,61 @@
+.featured-section-main {
+    max-width: 1440px;
+    margin: auto;
+    padding: 112px 0px 112px 0px;
+}
+
+.feature-container {
+    max-width: 1150px;
+    margin: auto;
+}
+
+.featured-section-main .cardSection {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.feature-container-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+}
+
+.feature-container-head h6 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #23A6F0;
+}
+
+.feature-container-head h3 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #252B42;
+}
+
+.feature-container-head p {
+    width: 469px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #737373;
+}
+
+@media (max-width:500px) {
+    .feature-container-head p{
+        width: fit-content;
+    }
+}

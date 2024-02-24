@@ -41,7 +41,7 @@
     font-size: 40px;
     font-weight: 700;
     text-align: left;
-    word-break: break-all;
+    word-break: break-word;
 
 }
 
@@ -53,7 +53,7 @@
     line-height: 30px;
     letter-spacing: 0.20000000298023224px;
     text-align: left;
-    word-break: break-all;
+    word-break: break-word;
 
 }
 
@@ -67,6 +67,12 @@
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(2, auto);
     } 
+    .winter-clothes-content h4 ,.winter-clothes-content h5,.winter-clothes-content h2{
+        text-align: center;
+    }
+    .winter-clothes-content{
+        align-items: center;
+    }
 }
 
 @media(max-width:400px) {

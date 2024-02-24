@@ -5,6 +5,8 @@ import HeroCarousel from './Components/pages/Home/HeroSection/heroCarousel';
 import BestProduct from './Components/pages/Home/BestSellerProduct/Best-Product';
 import Carousel2 from './Components/pages/Home/Carousel2/Carousel2';
 import SuggestionSec from './Components/pages/Home/randomSuggestion/SuggestionSec';
+import FeaturedSection from './Components/pages/Home/FeaturedSection/Featured-section';
+import Footer from './Components/layout/footer/Footer';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <BestProduct/>
       <Carousel2/> 
       <SuggestionSec/>
+      <FeaturedSection/>
+      <Footer/>
     </div>
   );
 }

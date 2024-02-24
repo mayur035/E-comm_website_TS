@@ -1,5 +1,5 @@
 import classes from './Product-card.module.css'
-import { Assets } from '../../../Assets/Assets';
+import { Assets } from '../../../../Assets/Assets';
 
 
 type cardProps={

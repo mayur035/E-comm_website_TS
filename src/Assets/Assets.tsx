@@ -13,28 +13,34 @@ import product_g6 from './product/g6.svg'
 import product_b7 from './product/b7.svg'
 import product_b8 from './product/b8.svg'
 import product_color from './product/product-colors.svg'
-import winterClothes from'./suggestionSecHome/asian-woman-man-with-winter-clothes.svg'
+import winterClothes from './suggestionSecHome/asian-woman-man-with-winter-clothes.svg'
+import feature1 from './Features/1.svg'
+import feature2 from './Features/2.svg'
+import feature3 from './Features/3.svg'
 
-export const Assets = 
-    {
-        "images": {
-            hero1: hero_1,
-            hero2: hero_2,
-            editorPicks1:funckyBoy,
-            editorPicks2:swagyGirl,
-            editorPicks3:professionalGirl,
-            editorPicks4:beachBoy,
-            product_g1:product_g1,
-            product_color:product_color,
-            product_b2:product_b2,
-            product_g3:product_g3,
-            product_g4:product_g4,
-            product_b5:product_b5,
-            product_g6:product_g6,
-            product_b7:product_b7,
-            product_b8:product_b8,
-            winterClothes:winterClothes,
+export const Assets =
+{
+    "images": {
+        hero1: hero_1,
+        hero2: hero_2,
+        editorPicks1: funckyBoy,
+        editorPicks2: swagyGirl,
+        editorPicks3: professionalGirl,
+        editorPicks4: beachBoy,
+        product_g1: product_g1,
+        product_color: product_color,
+        product_b2: product_b2,
+        product_g3: product_g3,
+        product_g4: product_g4,
+        product_b5: product_b5,
+        product_g6: product_g6,
+        product_b7: product_b7,
+        product_b8: product_b8,
+        winterClothes: winterClothes,
+        feature1: feature1,
+        feature2: feature2,
+        feature3: feature3,
 
-        }
     }
+}
 

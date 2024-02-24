@@ -18,7 +18,6 @@
     transform: translate(-50%, -50%);
     gap: 30px;
     color: #ffffff;
-    /* text-align: center; */
 }
 
 
@@ -47,15 +46,12 @@
 
 @media (max-width:1200px) {
     .slide-container .slide .content{
-        /* top:35%; */
-        gap: 0px;
+        gap: 15px;
     }
 }
 
 @media (max-width:624px) {
     .slide-container .slide .content{
-        /* top:10%;
-        left:0%; */
         text-align: center;
         line-height: 10px;
         align-items: center;

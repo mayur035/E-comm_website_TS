@@ -1,4 +1,4 @@
-import ProductCard from '../../../UI/Card/Product-card';
+import ProductCard from '../../../UI/Card/ProductCard/Product-card';
 import BestSellingProduct from '../../../../Data/Best-selling-product';
 import classes from './Best-Product.module.css'
 

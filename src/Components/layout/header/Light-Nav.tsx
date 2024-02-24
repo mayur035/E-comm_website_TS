@@ -1,6 +1,7 @@
 import { FavoriteBorderOutlined, PersonOutlineOutlined, SearchOutlined, ShoppingCartOutlined, Menu, Close } from '@mui/icons-material'
 import classes from './Light-Nav.module.css'
 import { useState } from 'react'
+import Logo from '../../UI/logo/Logo'
 
 
 const LightNavbar = () => {
@@ -8,10 +9,7 @@ const LightNavbar = () => {
     return (
         <section id={classes['light-header']}>
             <div className={classes.container}>
-                <div className={classes.logo}>
-                    <h3>Bandage</h3>
-                </div>
-
+                <Logo/>
                 <div className={`${classes.menu} ${Mobile ? classes['menu-res'] : ""}`}>
                     <ul>
                         <li><a href="#">Home</a></li>

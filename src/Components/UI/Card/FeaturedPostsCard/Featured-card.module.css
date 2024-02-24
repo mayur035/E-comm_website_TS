@@ -1,0 +1,121 @@
+.feature-card-main {
+    width: fit-content;
+    margin: 12px;
+}
+
+.feature-card-image {
+    position: relative;
+}
+
+.feature-card-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.feature-card-image .new {
+    position: absolute;
+    top: 12%;
+    left: 7%;
+    background-color: #E74040;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.feature-card-content {
+    padding: 25px 25px 35px 25px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card-details h4 {
+    width: 247px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+}
+
+.card-details .paragraph {
+    width: 280px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+
+
+}
+
+.card-details .time-comments {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.card-details .time-comments span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card-details .time-comments span p {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+
+}
+
+.card-details .more {
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+    color: #737373;
+}
+
+.feature-card-content .options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.feature-card-content .options span {
+    color: #737373;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+    text-align: left;
+}
+
+.feature-card-content .options span:hover {
+    color: #8EC2F2;
+    cursor: pointer;
+}
+
+@media (max-width:350px) {
+    .feature-card-content{
+        padding: 25px 0px;
+    }
+    .card-details h4,.card-details .paragraph{
+        width: fit-content;
+    }
+}
