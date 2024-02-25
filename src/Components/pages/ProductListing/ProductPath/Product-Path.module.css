@@ -1,0 +1,57 @@
+.product-path {
+    max-width: 1440px;
+    margin: auto;
+    border: 2px solid;
+    padding: 24px 0px;
+}
+
+.product-path .product-container{
+    max-width: 1050px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.product-path h3 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+    /* text-align: center; */
+}
+
+.product-path a {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #252B42;
+}
+
+.product-path h6 {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #BDBDBD;
+}
+
+.product-path .ShowPath{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width:200px) {
+    .product-path .product-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+}
