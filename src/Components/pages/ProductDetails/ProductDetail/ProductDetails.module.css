@@ -1,0 +1,112 @@
+.product-details-main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1440px;
+    /* border: 2px solid; */
+    margin: auto;
+    padding: 0px 0px 48px 0px;
+}
+.product-details-content-main {
+    display: flex;
+    justify-content: center;
+}
+.product-details-content-inner{
+    max-width: 510px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-end;
+}
+.product-details-content-inner h4 {
+    color: #252B42;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+    text-align: left;
+}
+
+.product-details-content-inner .rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-details-content-inner .rating h6 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: #737373;
+}
+
+.product-details-content-inner .price {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #252B42;
+}
+
+.product-details-content-inner .availability {
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-align: left;
+}
+
+.product-details-content-inner .availability .CheckAva {
+    color: #737373;
+}
+
+.product-details-content-inner .availability .inStock {
+    color: #23A6F0;
+}
+
+.product-details-content-inner p {
+    max-width: 464px;
+    top: 190px;
+    left: 24px;
+    color: #858585;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+}
+.product-details-content-inner .options{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+.product-details-content-inner .options .like-cart-visible{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+} 
+.product-details-content-inner .options .like-cart-visible .icon{
+    border: 1px solid #E8E8E8;
+    padding: 10px;
+    font-size: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+@media (max-width:1029px){
+    .product-details-main {
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: repeat(2,1fr);
+    }
+}
+@media (max-width:300px) {
+    .product-details-content-inner .options{
+        flex-direction: column;
+    }
+}

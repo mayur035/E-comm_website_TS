@@ -29,7 +29,12 @@
     text-align: center;
     color: #737373;
 }
-
+.card-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
 .card-container img{
     height: auto;
     width: auto;

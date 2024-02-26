@@ -1,12 +1,12 @@
 .btn {
-    width: 35%;
-    padding: 15px 0px 15px 0px;
+    width: 25%;
+    padding: 10px 0px;
     border-radius: 10px;
     gap: 10px;
 }
 
-h3{
-    font-size: 20px;
+.head3{
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.1px;
     text-align: center;

@@ -1,7 +1,5 @@
 import classes from './Product-card.module.css'
 import { Assets } from '../../../../Assets/Assets';
-
-
 type cardProps={
     Image:{
         src:string;
@@ -11,6 +9,7 @@ type cardProps={
     productCategory:string;
     productOriginalPrice:number;
     productDiscountPrice:number;
+    ColorChoice:boolean
 };
 
 const ProductCard = (props:cardProps) => {
@@ -24,7 +23,7 @@ const ProductCard = (props:cardProps) => {
                     <h5 style={{color:'#BDBDBD'}}>${props.productOriginalPrice}</h5>
                     <h5 style={{color:'#23856D'}}>${props.productDiscountPrice}</h5>
                 </div>
-                <div><img src={Assets.images.product_color} alt="color" /></div>
+               {props.ColorChoice && <div><img src={Assets.images.product_color} alt="color" /></div>}
             </div>
         </div>
     )

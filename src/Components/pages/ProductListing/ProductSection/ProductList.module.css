@@ -1,0 +1,141 @@
+.product-list-main {
+    max-width: 1440px;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.product-list-main .product-filter {
+    width: 30%;
+    gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.product-filter .filter-by,
+.product-filter .filter-price,
+.product-filter .filter-brand,
+.checkList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-filter .filter-by span:hover {
+    color: #23A6F0;
+    cursor: pointer;
+}
+
+.product-list-main .product-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: auto;
+    gap: 20px;
+}
+
+.product-list-main .product-container .product {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(243px, 1fr));
+    row-gap: 30px;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-container .product-content {
+    width: 100%;
+    padding: 30px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-container .product-content .sorting {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-container .product-content .sorting select {
+    width: 141px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.product-container .product-content .sorting select {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #737373;
+}
+
+.product-content .filter p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #737373;
+    border-radius: 1px;
+    padding: 0px 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #737373;
+}
+.product-content .sort select{
+    height: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #737373;
+}
+
+.Pagination {
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.Pagination span {
+    display: inline-block;
+    padding: 10px;
+    border: 0.7px solid;
+    border-color: #BDBDBD;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.Pagination .next-prev {
+    color: #BDBDBD;
+}
+
+.Pagination .next-prev:hover {
+    color: #23A6F0;
+    background-color: #BDBDBD;
+}
+
+.Pagination .pageNo:hover {
+    color: #23A6F0;
+}
+
+@media (max-width:768px) {
+    .product-list-main .product-filter {
+        display: none;
+    }
+
+    .product-list-main .product-container {
+        width: 100%;
+    }
+}

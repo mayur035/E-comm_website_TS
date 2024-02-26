@@ -7,7 +7,7 @@ type buttonProps = {
 const Button = (props: buttonProps) => {
   return (
     <button className={`${classes.btn} ${props.isPrimary ? classes['primary-btn'] : classes['secondary-btn']}`}>
-      <h3>{props.text}</h3> </button>
+      <h3 className={classes.head3}>{props.text}</h3> </button>
   )
 }
 

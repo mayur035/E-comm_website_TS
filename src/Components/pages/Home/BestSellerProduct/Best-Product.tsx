@@ -12,7 +12,7 @@ const BestProduct = () => {
             </div>
             <div className={classes['product-list']}>
                 {BestSellingProduct.map((product, index) => (
-                    <ProductCard key={index} {...product} />
+                    <ProductCard key={index} {...product} ColorChoice={true}/>
                 ))}
             </div>
         </div>

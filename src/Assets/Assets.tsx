@@ -17,6 +17,19 @@ import winterClothes from './suggestionSecHome/asian-woman-man-with-winter-cloth
 import feature1 from './Features/1.svg'
 import feature2 from './Features/2.svg'
 import feature3 from './Features/3.svg'
+import product_list_c1 from './product-listing-carousel/1.svg'
+import product_list_c2 from './product-listing-carousel/2.svg'
+import product_list_c3 from './product-listing-carousel/3.svg'
+import product_list_c4 from './product-listing-carousel/4.svg'
+import product_list_c5 from './product-listing-carousel/5.svg'
+import hooli from './Clients/hooli.svg'
+import lya from './Clients/lya.svg'
+import leaf from './Clients/leaf.svg'
+import stripe from './Clients/stripe.svg'
+import aws from './Clients/aws.svg'
+import raddit from './Clients/raddit.svg'
+import stars from './Product-details/stars.svg'
+import productDesc from './Product-details/productDesc.svg'
 
 export const Assets =
 {
@@ -40,6 +53,19 @@ export const Assets =
         feature1: feature1,
         feature2: feature2,
         feature3: feature3,
+        product_list_c1:product_list_c1,
+        product_list_c2:product_list_c2,
+        product_list_c3:product_list_c3,
+        product_list_c4:product_list_c4,
+        product_list_c5:product_list_c5,
+        hooli:hooli,
+        lya:lya,
+        leaf:leaf,
+        stripe:stripe,
+        aws:aws,
+        raddit:raddit,
+        stars:stars,
+        productDesc:productDesc
 
     }
 }

@@ -1,0 +1,32 @@
+.greater_than {
+    transform: rotate(180deg);
+  }
+  .carousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 1140px;
+    margin-inline: auto;
+    margin-block: 20px;
+  }
+  .container {
+    display: flex;
+    overflow-x: hidden;
+    max-width: 1440px;
+    gap: 15px;
+  }
+  .carousel button {
+    padding: 10px;
+  }
+  .left_btn,
+  .right_btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      gap: 0;
+    }
+  }
