@@ -1,0 +1,35 @@
+.big-company-main {
+    max-width: 1440px;
+    margin: auto;
+}
+
+.big-company-main .big-company-header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 864px;
+    margin: auto;
+    gap: 30px;
+}
+
+.big-company-main .big-company-header h2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+    color: #252B42;
+    text-align: center;
+}
+
+.big-company-main .big-company-header p {
+    max-width: 547px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #737373;
+}

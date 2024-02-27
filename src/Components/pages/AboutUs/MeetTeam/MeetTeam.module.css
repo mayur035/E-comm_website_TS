@@ -1,0 +1,42 @@
+.meet-team-main{
+    max-width: 1440px;
+    margin: auto;
+}
+
+.meet-team-main .meet-team-header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 864px;
+    margin: auto;
+    gap: 30px;
+}
+
+.meet-team-main .meet-team-header h2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+    color: #252B42;
+    text-align: center;
+}
+
+.meet-team-main .meet-team-header p {
+    max-width: 547px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #737373;
+}
+
+.meet-team-main .team-card{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(auto,316px));
+    margin: auto;
+    justify-content: center;
+}

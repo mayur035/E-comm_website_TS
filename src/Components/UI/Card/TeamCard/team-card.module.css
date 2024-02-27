@@ -1,0 +1,38 @@
+.team-card-main{
+    margin: 20px;
+}
+.team-card-main .team-user-details {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* align-items: center; */
+    gap: 20px;
+}
+
+.team-card-main .team-user-details .userName {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: center;
+    color: #252B42;
+}
+
+.team-card-main .team-user-details .profession {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color:#737373
+}
+
+.team-card-main .team-user-details .team-user-social{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.team-card-main .team-user-details .team-user-social a{
+    text-decoration: #23A6F0;
+} 

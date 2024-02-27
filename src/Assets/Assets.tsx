@@ -31,6 +31,10 @@ import raddit from './Clients/raddit.svg'
 import stars from './Product-details/stars.svg'
 import productDesc from './Product-details/productDesc.svg'
 import QAbgimage from './ContactUs/background.svg'
+import WorkWithUs from './About-us/girl.svg'
+import team1user1 from './About-us/team-1-user-1.svg'
+import team1user2 from './About-us/team-1-user-2.svg'
+import team1user3 from './About-us/team-1-user-3.svg'
 
 export const Assets =
 {
@@ -67,7 +71,11 @@ export const Assets =
         raddit:raddit,
         stars:stars,
         productDesc:productDesc,
-        QAbgimage:QAbgimage
+        QAbgimage:QAbgimage,
+        WorkWithUSGirl:WorkWithUs,
+        team1user1:team1user1,
+        team1user2:team1user2,
+        team1user3:team1user3,
     }
 }
 
