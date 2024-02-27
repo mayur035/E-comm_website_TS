@@ -4,8 +4,7 @@
 }
 
 .cart-container {
-    border: 2px solid;
-    padding: 20px 0px;
+    padding: 20px;
     display: flex;
     justify-content: space-around;
 }
@@ -13,7 +12,6 @@
 .cart-container .cart-item-list {
     gap: 20px;
     flex: 3;
-    border: 2px solid;
 }
 
 .cart-container .cart-item-list .cart-item-header {

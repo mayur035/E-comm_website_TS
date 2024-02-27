@@ -4,7 +4,9 @@ import Header from '../../Components/layout/header/Header'
 import Footer from '../../Components/layout/footer/Footer'
 import HomeMain from '../../Pages/HomeMain'
 import ProductListingMain from '../../Pages/ProductListingMain'
-import Cart from '../../Components/pages/ProductCart/Cart'
+import CartMain from '../../Pages/CartMain'
+import AboutUsMain from '../../Pages/AboutUsMain'
+import ContactUsMain from '../../Pages/ContactUsMain'
 const Router = () => {
     return (
         <React.Fragment>
@@ -31,7 +33,13 @@ export const Routers = createBrowserRouter([
             },
             {
                 path:'/cart',
-                element:<Cart/>
+                element:<CartMain/>
+            },{
+                path:'/aboutUs',
+                element:<AboutUsMain/>
+            },{
+                path:'/contactUs',
+                element:<ContactUsMain/>
             }
     
         ]

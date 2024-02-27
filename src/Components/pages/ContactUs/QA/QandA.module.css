@@ -1,0 +1,48 @@
+.q-a-main {
+    max-width: 1440px;
+    margin: auto;
+    background-image: url('../../../../Assets/ContactUs/background.svg');
+    background-repeat:no-repeat;
+    background-size:auto;
+    height: 446px;
+}
+
+.q-a-main .q-a-inner-main {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    max-width: 1050px;
+    height: 100%;
+    align-items: center;
+    gap: 30px;
+}
+
+.q-a-main .q-a-inner-main .q-a-head2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    letter-spacing: 0.2px;
+    color: #252B42;
+    text-align: center;
+}
+
+.q-a-main .q-a-inner-main .q-a-para {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #737373;
+    max-width: 447px;
+}
+
+.q-a-main .q-a-inner-main .q-a-head6 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #23A6F0;
+    cursor: pointer;
+}

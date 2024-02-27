@@ -37,13 +37,7 @@ const Cart = () => {
 
                         <CartItem />
                         <hr />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
+                      
                     </div>
                 </div>
                 <div className={classes['cart-total-content']}>

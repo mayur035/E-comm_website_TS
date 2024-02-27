@@ -30,6 +30,7 @@ import aws from './Clients/aws.svg'
 import raddit from './Clients/raddit.svg'
 import stars from './Product-details/stars.svg'
 import productDesc from './Product-details/productDesc.svg'
+import QAbgimage from './ContactUs/background.svg'
 
 export const Assets =
 {
@@ -65,8 +66,8 @@ export const Assets =
         aws:aws,
         raddit:raddit,
         stars:stars,
-        productDesc:productDesc
-
+        productDesc:productDesc,
+        QAbgimage:QAbgimage
     }
 }
 
