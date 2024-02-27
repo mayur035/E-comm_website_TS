@@ -10,10 +10,10 @@
 }
 
 .featured-section-main .cardSection {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(auto,375px));
     margin: auto;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .feature-container-head {

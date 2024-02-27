@@ -2,8 +2,9 @@ import React from 'react'
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Header from '../../Components/layout/header/Header'
 import Footer from '../../Components/layout/footer/Footer'
-import HomeMain from '../../Components/pages/Home/HomeMain'
-import ProductListingMain from '../../Components/pages/ProductListing/ProductListingMain'
+import HomeMain from '../../Pages/HomeMain'
+import ProductListingMain from '../../Pages/ProductListingMain'
+import Cart from '../../Components/pages/ProductCart/Cart'
 const Router = () => {
     return (
         <React.Fragment>
@@ -26,13 +27,12 @@ export const Routers = createBrowserRouter([
             },
             {
                 path:'/productListing',
-                element:<ProductListingMain/>,
-                children:[
-                    {
-                        
-                    }
-                ]
+                element:<ProductListingMain/>
             },
+            {
+                path:'/cart',
+                element:<Cart/>
+            }
     
         ]
     }
