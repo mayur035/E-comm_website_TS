@@ -1,0 +1,13 @@
+.video-image-main{
+    max-width: 1440px;
+    margin: auto;
+}
+
+.video-image-main .video-image{
+    max-width: 1050px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+}

@@ -1,0 +1,55 @@
+.problemtype-main {
+    display: flex;
+    max-width: 1440px;
+    margin: auto;
+    padding: 24px 10px;
+}
+
+.problemtype-main .problemtype-inner {
+    display: flex;
+    max-width: 1050px;
+    margin: auto;
+}
+.problemtype-inner .problemtype-left{
+    flex: 1;
+}
+
+.problemtype-left .problemtype-left-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    /* text-align: left; */
+    color: #E74040;
+}
+
+.problemtype-left .problemtype-text-3 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.10000000149011612px;
+    /* text-align: left; */
+    color: #252B42;
+    max-width: 394px
+
+}
+.problemtype-inner .problemtype-right{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.problemtype-right .problemtype-right-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    /* text-align: left; */
+    color: #737373;
+}
+@media (max-width:425px) {
+    .problemtype-main .problemtype-inner{
+        flex-direction: column;
+    } 
+}

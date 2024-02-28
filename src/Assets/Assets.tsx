@@ -35,6 +35,10 @@ import WorkWithUs from './About-us/girl.svg'
 import team1user1 from './About-us/team-1-user-1.svg'
 import team1user2 from './About-us/team-1-user-2.svg'
 import team1user3 from './About-us/team-1-user-3.svg'
+import videoCardImg from './About-us/Video card.svg'
+import aboutHero from './About-us/technology 1.svg'
+import EllipsePink from './About-us/Ellipse-pink.svg'
+import EllipsePurple from './About-us/Ellipse-purple.svg'
 
 export const Assets =
 {
@@ -76,6 +80,10 @@ export const Assets =
         team1user1:team1user1,
         team1user2:team1user2,
         team1user3:team1user3,
+        videoCardImg:videoCardImg,
+        aboutHero:aboutHero,
+        EllipsePink:EllipsePink,
+        EllipsePurple:EllipsePurple
     }
 }
 

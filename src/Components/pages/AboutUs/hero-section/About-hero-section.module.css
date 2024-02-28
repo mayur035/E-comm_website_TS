@@ -1,0 +1,121 @@
+.about-hero-section-main {
+    max-width: 1440px;
+    margin: auto;
+    position: relative;
+}
+
+.about-hero-section-main .about-hero-section-inner {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.about-hero-section-inner .about-hero-section-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    /* align-items: center; */
+    margin: auto;
+}
+
+.about-hero-section-content .about-hero-h5 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.10px;
+    text-align: left;
+    color: #252B42;
+}
+
+.about-hero-section-content .about-hero-h1 {
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 80px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: #252B42;
+}
+
+.about-hero-section-content .about-hero-h4 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: #737373;
+    max-width: 376px;
+}
+
+.about-hero-section-inner .about-hero-section-hero {
+    position: relative;
+    width: 100%;
+}
+
+.about-hero-section-hero .about-hero {
+    width: 100%;
+    /* position: relative; */
+}
+
+.about-hero-section-hero .ellipse-purple-1 {
+    background-color: #977DF4;
+    position: absolute;
+    width: 14.78px;
+    border-radius: 50%;
+    height: 14.78px;
+    top:80%;
+    left: 5%;
+}
+
+.about-hero-section-hero .ellipse-purple-2 {
+    background-color: #977DF4;
+    position: absolute;
+    width: 14.78px;
+    height: 14.78px;
+    border-radius: 50%;
+    top: 25%;
+    /* left: 90%; */
+    right: 1%;
+}
+
+.about-hero-section-hero .ellipse-pink-1 {
+    background-color: #FFE9EA;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    width:20%;
+    height:16%;
+
+}
+
+.about-hero-section-hero .ellipse-pink-2 {
+    background-color: #FFE9EA;
+    position: absolute;
+    top: 10%;
+    left: 58.4px;
+    width: 73%;
+    height: 65%;
+    border-radius: 50%;
+    z-index: -1;
+
+}
+
+.about-hero-section-hero .ellipse-pink-3 {
+    background-color: #FFE9EA;
+    position: absolute;
+    width: 8%;
+    height: 7%;
+    top: 43%;
+    /* left: 90%; */
+    right: 0;
+    border-radius: 50%;
+}
+
+@media (max-width:768px) {
+    .about-hero-section-main .about-hero-section-inner{
+        grid-template-columns: repeat(1,auto);
+        grid-template-rows: repeat(2,auto);
+    }
+}

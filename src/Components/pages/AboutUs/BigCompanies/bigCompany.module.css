@@ -1,6 +1,7 @@
 .big-company-main {
     max-width: 1440px;
     margin: auto;
+    padding-bottom:80px;
 }
 
 .big-company-main .big-company-header {

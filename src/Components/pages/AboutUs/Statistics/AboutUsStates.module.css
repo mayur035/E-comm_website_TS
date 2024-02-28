@@ -1,0 +1,27 @@
+.statistics-main {
+    max-width: 1440px;
+    margin: auto;
+    padding: 80px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 60px;
+}
+
+.statistics-main .statistics-head1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 80px;
+    letter-spacing: 0.2px;
+    text-align: center;
+
+}
+
+.statistics-main .statistics-head5 {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    text-align: center;
+    color: #737373;
+}
