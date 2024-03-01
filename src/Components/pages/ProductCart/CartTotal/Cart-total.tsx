@@ -20,7 +20,7 @@ const CartTotal = () => {
                 <p>Total : </p>
                 <p>$300</p>
             </div>
-            <div className={classes['checkout-btn']}> <Button text='Checkout' isPrimary={true} /></div>
+            <div className={classes['checkout-btn']}> <Button>Checkout</Button></div>
         </React.Fragment>
     )
 }

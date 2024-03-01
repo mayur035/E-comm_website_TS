@@ -1,6 +1,7 @@
 import { Assets } from '../Assets/Assets'
 const BestSellingProduct = [
     {
+        id:'p1',
         Image:
         {
             src: Assets.images.product_g1,
@@ -11,6 +12,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p2',
         Image:
         {
             src: Assets.images.product_b2,
@@ -21,6 +23,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p3',
         Image:
         {
             src: Assets.images.product_g3,
@@ -31,6 +34,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p4',
         Image:
         {
             src: Assets.images.product_g4,
@@ -41,6 +45,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p5',
         Image:
         {
             src: Assets.images.product_b5,
@@ -51,6 +56,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p6',
         Image:
         {
             src: Assets.images.product_g6,
@@ -61,6 +67,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p7',
         Image:
         {
             src: Assets.images.product_b7,
@@ -71,6 +78,7 @@ const BestSellingProduct = [
         productOriginalPrice:16.48,
         productDiscountPrice: 6.48
     },{
+        id:'p8',
         Image:
         {
             src: Assets.images.product_b8,

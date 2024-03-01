@@ -1,6 +1,9 @@
 import ProductCard from '../../../UI/Card/ProductCard/Product-card';
 import BestSellingProduct from '../../../../Data/Best-selling-product';
 import classes from './Best-Product.module.css'
+import { Link, useParams } from 'react-router-dom';
+
+
 
 const BestProduct = () => {
     return (
@@ -11,8 +14,10 @@ const BestProduct = () => {
                 <p>Problems trying to resolve the conflict between</p>
             </div>
             <div className={classes['product-list']}>
-                {BestSellingProduct.map((product, index) => (
-                    <ProductCard key={index} {...product} ColorChoice={true}/>
+                {BestSellingProduct.map((product) => (
+                    <Link key={product.id} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
+                        <ProductCard key={product.id} {...product} ColorChoice={true} />
+                    </Link>
                 ))}
             </div>
         </div>

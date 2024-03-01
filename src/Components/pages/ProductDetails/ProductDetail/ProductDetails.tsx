@@ -1,9 +1,8 @@
 import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility, VisibilityTwoTone } from '@mui/icons-material'
 import { Assets } from '../../../../Assets/Assets'
-import Button from '../../../UI/Button/PrimaryButton'
 import classes from './ProductDetails.module.css'
-
 import React from 'react'
+import Button from '../../../UI/Button/PrimaryButton'
 
 const ProductDetails = () => {
     return (
@@ -25,7 +24,7 @@ const ProductDetails = () => {
                         <img src={Assets.images.product_color} alt="" />
                     </div>
                     <div className={classes.options}>
-                        <Button text='Select Option' isPrimary={true} />
+                        <Button buttonType={'primary'} >Select Option</Button>
                         <div className={classes['like-cart-visible']}>
                             <FavoriteBorderOutlined className={classes.icon} />
                             <ShoppingCartOutlined className={classes.icon} />

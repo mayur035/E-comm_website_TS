@@ -4,6 +4,7 @@ import ProductCard from '../../../UI/Card/ProductCard/Product-card'
 import ProductListing from '../../../../Data/Product-listing'
 import { ChevronLeft, FilterList } from '@mui/icons-material'
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider'
+import { Link } from 'react-router-dom'
 
 const Checklist = ['All', 'Zara', 'Levi\'s', 'Adidas', 'Peter England', 'Allen solly', 'Fabindia']
 const ProductList = () => {
@@ -96,7 +97,9 @@ const ProductList = () => {
 
                 <div className={classes.product}>
                     {ProductListing.map((product, index) => (
+                        <Link key={product.id} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
                         <ProductCard key={index} {...product} ColorChoice={true}/>
+                        </Link>     
                     ))}
                 </div>
                 <div className={classes['Pagination']}>

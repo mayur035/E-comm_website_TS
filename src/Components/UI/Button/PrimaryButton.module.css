@@ -1,8 +1,9 @@
 .btn {
-    width: 25%;
-    padding: 10px 0px;
+    width: fit-content;
+    padding: 17px 20px;
     border-radius: 10px;
     gap: 10px;
+    cursor: pointer;
 }
 
 .head3{
@@ -12,22 +13,22 @@
     text-align: center;
 }
 
-.primary-btn {
+.primaryBtn {
     background-color: #2DC071;
     border: 1px solid #2DC071;
 }
 
-.primary-btn h3 {
+.primaryBtn h3 {
     color: #ffffff;
 }
 
 
-.secondary-btn {
+.secondaryBtn {
     background-color: transparent;
     border: 1px solid #2DC071;
 }
 
-.secondary-btn h3 {
+.secondaryBtn h3 {
     color: #2DC071;
 }
 

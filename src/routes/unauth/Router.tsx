@@ -7,9 +7,13 @@ import ProductListingMain from '../../Pages/ProductListingMain'
 import CartMain from '../../Pages/CartMain'
 import AboutUsMain from '../../Pages/AboutUsMain'
 import ContactUsMain from '../../Pages/ContactUsMain'
+import ErrorPage from '../../Pages/ErrorPage'
+import ProductDetailsMain from '../../Pages/ProductDetailsMain'
+import ScrollToTop from '../scrollToTop'
 const Router = () => {
     return (
         <React.Fragment>
+            <ScrollToTop />
             <Header/>
             <Outlet/>
             <Footer/>
@@ -22,16 +26,18 @@ export const Routers = createBrowserRouter([
     {
         path: '/',
         element: <Router />,
+        errorElement:<ErrorPage/>,
         children:[
             {
                 path:'',
                 element:<HomeMain/>
-            },
-            {
+            },{
                 path:'/productListing',
                 element:<ProductListingMain/>
-            },
-            {
+            },{
+                path:'/productDetails/:productID',
+                element:<ProductDetailsMain/>
+            },{
                 path:'/cart',
                 element:<CartMain/>
             },{

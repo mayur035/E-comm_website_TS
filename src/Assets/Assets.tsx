@@ -39,6 +39,7 @@ import videoCardImg from './About-us/Video card.svg'
 import aboutHero from './About-us/technology 1.svg'
 import EllipsePink from './About-us/Ellipse-pink.svg'
 import EllipsePurple from './About-us/Ellipse-purple.svg'
+import ErrorPage from './PageNotFound/404Error.svg'
 
 export const Assets =
 {
@@ -83,7 +84,8 @@ export const Assets =
         videoCardImg:videoCardImg,
         aboutHero:aboutHero,
         EllipsePink:EllipsePink,
-        EllipsePurple:EllipsePurple
+        EllipsePurple:EllipsePurple,
+        ErrorPage:ErrorPage
     }
 }
 

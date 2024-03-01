@@ -2,6 +2,7 @@ import { FavoriteBorderOutlined, PersonOutlineOutlined, SearchOutlined, Shopping
 import classes from './Light-Nav.module.css'
 import { useState } from 'react'
 import Logo from '../../UI/logo/Logo'
+import { Link } from 'react-router-dom'
 
 
 const LightNavbar = () => {
@@ -12,17 +13,17 @@ const LightNavbar = () => {
                 <Logo/>
                 <div className={`${classes.menu} ${Mobile ? classes['menu-res'] : ""}`}>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><Link to='/'>Home</Link></li>
+                        <li><Link to='/productListing'>Shop</Link></li>
+                        <li><Link to='/aboutUs'>About</Link></li>
                         <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><Link to='/contactUs'>Contact</Link></li>
                         <li><a href="#">Pages</a></li>
                     </ul>
                     <ul>
                         <li><a href="#"><PersonOutlineOutlined /> Login/Signup</a></li>
                         <li><a href="#"><SearchOutlined /></a></li>
-                        <li><a href="#"><ShoppingCartOutlined /></a></li>
+                        <li><Link to='/cart'><ShoppingCartOutlined /></Link></li>
                         <li><a href="#"><FavoriteBorderOutlined /></a></li>
                     </ul>
                 </div>

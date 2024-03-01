@@ -1,3 +1,22 @@
+.card-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: fit-content;
+    margin: auto;
+}
+
+.card-container:hover{
+    box-shadow: 5px 5px 10px 5px #dcdcdc;
+    cursor: pointer;
+}
+
+.card-container img {
+    height: auto;
+    width: auto;
+}
+
 .card-content {
     text-align: center;
     display: flex;
@@ -29,16 +48,7 @@
     text-align: center;
     color: #737373;
 }
-.card-container{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-.card-container img{
-    height: auto;
-    width: auto;
-}
+
 .product-price h5 {
     font-size: 16px;
     font-weight: 700;
