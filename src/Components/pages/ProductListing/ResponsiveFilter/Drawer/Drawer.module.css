@@ -1,0 +1,33 @@
+.drawer_main{
+    position: fixed;
+    height: 70%;
+    width: 100%;
+    border: 2px solid;
+    border-bottom: none;
+    border-radius: 10px;
+    bottom: 0;
+    left: 0;
+    background: white;
+    z-index: 51;
+    animation: slide-smooth 300ms ease-out forwards;
+    overflow: scroll;
+}
+
+@keyframes slide-smooth {
+    from {
+        opacity: 0;
+        transform: translateY(3rem)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.drawer_main .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}

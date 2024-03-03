@@ -5,10 +5,15 @@ import ProductListing from '../../../../Data/Product-listing'
 import { ChevronLeft, FilterList } from '@mui/icons-material'
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider'
 import { Link } from 'react-router-dom'
+import RespFilter from '../ResponsiveFilter/RespFilter'
 
 const Checklist = ['All', 'Zara', 'Levi\'s', 'Adidas', 'Peter England', 'Allen solly', 'Fabindia']
+
+
+
 const ProductList = () => {
 
+    const [isShow, setIsShow] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     const updateWindowWidth = () => {
@@ -23,6 +28,10 @@ const ProductList = () => {
             window.removeEventListener('resize', updateWindowWidth);
         };
     }, []);
+
+    const openFilter = () => {
+        setIsShow(true);
+    }
 
     return (
         <div className={classes['product-list-main']}>
@@ -44,7 +53,7 @@ const ProductList = () => {
                     <MultiRangeSlider
                         min={0}
                         max={1000}
-                        onChange={({ min, max }) => {}}
+                        onChange={({ min, max }) => { }}
                     />
                 </div>
                 <div className={classes['filter-brand']}>
@@ -68,7 +77,8 @@ const ProductList = () => {
             <div className={classes['product-container']}>
                 {(windowWidth <= 768) ?
                     <div className={classes['product-content']}>
-                        <div className={classes.filter}><p>Filter<FilterList/></p></div>
+                        {isShow && <RespFilter  setIsShow={setIsShow} />}
+                        <div className={classes.filter}><p onClick={()=>setIsShow(!isShow)}>Filter<FilterList /></p></div>
                         <div className={classes.sort}>
                             <select name="sortBy" id="sortBy">
                                 <option value="Popularity">Popularity</option>
@@ -98,8 +108,8 @@ const ProductList = () => {
                 <div className={classes.product}>
                     {ProductListing.map((product, index) => (
                         <Link key={product.id} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
-                        <ProductCard key={index} {...product} ColorChoice={true}/>
-                        </Link>     
+                            <ProductCard key={index} {...product} ColorChoice={true} />
+                        </Link>
                     ))}
                 </div>
                 <div className={classes['Pagination']}>

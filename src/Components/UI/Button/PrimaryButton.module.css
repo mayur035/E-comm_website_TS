@@ -13,36 +13,56 @@
     text-align: center;
 }
 
-.primaryBtn {
+/* solid green button */
+.solidGreenBtn {
     background-color: #2DC071;
     border: 1px solid #2DC071;
 }
 
-.primaryBtn h3 {
+.solidGreenBtn h3 {
     color: #ffffff;
 }
 
-
-.secondaryBtn {
+.outlineGreenBtn {
     background-color: transparent;
     border: 1px solid #2DC071;
 }
 
-.secondaryBtn h3 {
+.outlineGreenBtn h3 {
     color: #2DC071;
+}
+
+/* solid blue button */
+.solidBlueBtn {
+    background-color: #23A6F0;
+    border: 1px solid #23A6F0;
+}
+
+.solidBlueBtn h3 {
+    color: #ffffff;
+}
+
+
+.outlineBlueBtn {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+}
+
+.outlineBlueBtn h3 {
+    color: #ffffff;
 }
 
 @media (max-width:768px) {
 
-    .primary-btn,
-    .secondary-btn {
+    .solid-btn,
+    .outline-btn {
         width: 100px;
         height: 30px;
         padding: 0;
     }
 
-    .primary-btn h3,
-    .secondary-btn h3 {
+    .solid-btn h3,
+    .outline-btn h3 {
         font-size: small;
     }
 }

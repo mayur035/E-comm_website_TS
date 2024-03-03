@@ -24,7 +24,7 @@ type SlidesProps = {
                         <h1>{props.contentCarousel.content.heading1}</h1>
                         <h4>{props.contentCarousel.content.heading4}</h4>
                     
-                        <Button>shop me</Button>
+                        <Button buttonType='solid' buttonColor='green'>shop me</Button>
                       
                     </div>
                 </div>

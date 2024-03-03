@@ -9,7 +9,7 @@
     height: 100%;
     margin: auto;
     position: relative;
-    z-index: 999;
+    z-index: 2;
 }
 
 #light-header {

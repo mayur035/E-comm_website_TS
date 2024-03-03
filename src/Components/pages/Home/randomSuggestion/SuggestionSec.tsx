@@ -14,8 +14,8 @@ const SuggestionSec = () => {
                         <h2>Part of the Neural Universe</h2>
                         <h4>We know how large objects will act, but things on a small scale.</h4>
                         <div className={classes.btns}>
-                            <Button>Buy Now</Button>
-                            <Button buttonType='secondary'>Read more</Button>
+                            <Button buttonType='solid' buttonColor='green'>Buy Now</Button>
+                            <Button buttonType='outline'>Read more</Button>
                     </div>
                 </div>
             </div>

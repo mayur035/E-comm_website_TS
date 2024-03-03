@@ -11,7 +11,7 @@ const AboutHeroSection = () => {
                     <h5 className={classes['about-hero-h5']}>About Company</h5>
                     <h1 className={classes['about-hero-h1']}>ABOUT US</h1>
                     <h4 className={classes['about-hero-h4']}>We know how large objects will act,but things on a small scale</h4>
-                    <Button>Get Quote Now</Button>
+                    <Button buttonColor='blue' buttonType='solid' >Get Quote Now</Button>
                 </section>
                 <section className={classes['about-hero-section-hero']}>
                     <div style={{position:'relative'}}>

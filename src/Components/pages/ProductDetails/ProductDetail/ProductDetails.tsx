@@ -24,7 +24,7 @@ const ProductDetails = () => {
                         <img src={Assets.images.product_color} alt="" />
                     </div>
                     <div className={classes.options}>
-                        <Button buttonType={'primary'} >Select Option</Button>
+                        <Button buttonType='solid' buttonColor='blue' >Select Option</Button>
                         <div className={classes['like-cart-visible']}>
                             <FavoriteBorderOutlined className={classes.icon} />
                             <ShoppingCartOutlined className={classes.icon} />

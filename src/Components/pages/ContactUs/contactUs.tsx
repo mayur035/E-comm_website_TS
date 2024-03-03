@@ -9,7 +9,7 @@ const ContactUs = () => {
         <div className={classes.left}>
           <h2>CONTACT US</h2>
           <p>Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics</p>
-          <Button>Contact us</Button>
+          <Button buttonColor='blue' buttonType='solid'>Contact us</Button>
         </div>
         <div className={classes.right}>
           <div className={classes['right-one']}>
