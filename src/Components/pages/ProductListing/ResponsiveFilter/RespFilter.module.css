@@ -8,18 +8,5 @@
 .modal-overlays .filter-menu {
     display: flex;
     flex-direction: column;
-    /* height: 50px; */
     gap: 30px;
 }
-
-
-/* .filter-menu .accordion {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 20px;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid;
-    background: transparent;
-} */

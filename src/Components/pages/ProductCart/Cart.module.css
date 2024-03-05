@@ -41,6 +41,7 @@
 .cart-container .cart-total-content {
     position: sticky;
     display: flex;
+    gap: 15px;
     flex-wrap: wrap;
     flex-direction: column;
     flex: 1;

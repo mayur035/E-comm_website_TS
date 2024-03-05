@@ -14,8 +14,9 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     justify-content: center;
+    padding: 10px 20px;
     /* align-items: center; */
     margin: auto;
 }

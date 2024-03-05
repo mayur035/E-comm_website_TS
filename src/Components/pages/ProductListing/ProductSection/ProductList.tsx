@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import classes from './ProductList.module.css'
 import ProductCard from '../../../UI/Card/ProductCard/Product-card'
-import ProductListing from '../../../../Data/Product-listing'
-import { ChevronLeft, FilterList } from '@mui/icons-material'
+import { FilterList } from '@mui/icons-material'
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider'
 import { Link } from 'react-router-dom'
 import RespFilter from '../ResponsiveFilter/RespFilter'
+import { useFilterContext } from '../../../../Context/Filter_context'
 
 const Checklist = ['All', 'Zara', 'Levi\'s', 'Adidas', 'Peter England', 'Allen solly', 'Fabindia']
 
 
 
 const ProductList = () => {
-
+    const context = useFilterContext();
     const [isShow, setIsShow] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     const updateWindowWidth = () => {
         setWindowWidth(window.innerWidth);
     };
+
 
     useEffect(() => {
         window.addEventListener('resize', updateWindowWidth);
@@ -29,24 +30,33 @@ const ProductList = () => {
         };
     }, []);
 
-    const openFilter = () => {
-        setIsShow(true);
+    //getUnique for each fields
+    const getUniqueData = (data: any, property: any) => {
+        let newVal = data.map((curElement: string) => {
+            return curElement[property];
+        })
+        newVal = ["all", ...new Set(newVal)];
+        return newVal;
     }
 
+    //getUnique data
+    const categoryOnlyData = getUniqueData(context?.all_products, "productCategory");
+    const PriceOnlyData = getUniqueData(context.all_products, "productOriginalPrice");
+    const BrandOnlyData = getUniqueData(context.all_products, "productBrand");
     return (
         <div className={classes['product-list-main']}>
             <div className={classes['product-filter']}>
                 <div className={classes['filter-by']}>
                     <h3>Filter by</h3>
-                    <span style={{ display: 'flex', alignItems: 'center' }}><ChevronLeft />All Categories</span>
-                    <span>All men's clothing</span>
-                    <span>Women clothing</span>
-                    <span>Footware</span>
-                    <span>Watches</span>
-                    <span>Beauty</span>
-                    <span>Kid's clothing</span>
-                    <span>Hand bags</span>
-                    <span>Jwellery</span>
+                    {categoryOnlyData.map((curElement: string, index: any) => {
+                        return (
+                            <span key={index} data-name='productCategory' data-value={curElement} onClick={
+                                context.updateFilterValue
+                            }>
+                                {curElement}
+                            </span>
+                        )
+                    })}
                 </div>
                 <div className={classes['filter-price']}>
                     <h4>Price</h4>
@@ -60,31 +70,29 @@ const ProductList = () => {
                     <h4>Brands</h4>
                     <div>
                         <div className={classes.checkList}>
-                            {Checklist.map((item, index) => {
+                            {BrandOnlyData.map((item:string, index:any) => {
                                 return (
                                     <div key={index}>
-                                        <input type="checkbox" id={item} name={item} value={item} />
+                                        <input type="checkbox" id={item} data-name='productBrand' data-value={item} onClick={context.updateFilterValue}/>
                                         <label htmlFor={item}>{item}</label>
                                     </div>
                                 )
-                            })
-                            }
+                            })}
                         </div>
-
                     </div>
                 </div>
             </div>
             <div className={classes['product-container']}>
                 {(windowWidth <= 768) ?
                     <div className={classes['product-content']}>
-                        {isShow && <RespFilter  setIsShow={setIsShow} />}
-                        <div className={classes.filter}><p onClick={()=>setIsShow(!isShow)}>Filter<FilterList /></p></div>
+                        {isShow && <RespFilter setIsShow={setIsShow} />}
+                        <div className={classes.filter}><p onClick={() => setIsShow(!isShow)}>Filter<FilterList /></p></div>
                         <div className={classes.sort}>
-                            <select name="sortBy" id="sortBy">
-                                <option value="Popularity">Popularity</option>
-                                <option value="saab">Saab</option>
-                                <option value="opel">Opel</option>
-                                <option value="audi">Audi</option>
+                            <select name="sortBy" id="sortBy" onChange={context.sorting}>
+                                <option value="high-low">Price(high-low)</option>
+                                <option value="low-high">Price(low-high)</option>
+                                <option value="newest">Newest Arrivals</option>
+                                <option value="onReview">Avg. Customer Review</option>
                             </select>
                         </div>
                     </div>
@@ -96,21 +104,20 @@ const ProductList = () => {
                         </div>
                         <div className={classes.sorting}>
                             <h4>Sort By:</h4>
-                            <select name="sortBy" id="sortBy">
-                                <option value="Popularity">Popularity</option>
-                                <option value="saab">Saab</option>
-                                <option value="opel">Opel</option>
-                                <option value="audi">Audi</option>
+                            <select name="sortBy" id="sortBy" onChange={context.sorting}>
+                                <option value="high-low">Price(high-low)</option>
+                                <option value="low-high">Price(low-high)</option>
+                                <option value="newest">Newest Arrivals</option>
+                                <option value="onReview">Avg. Customer Review</option>
                             </select>
                         </div>
                     </div>}
 
                 <div className={classes.product}>
-                    {ProductListing.map((product, index) => (
-                        <Link key={product.id} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
+                    {context.filter_products.map((product, index) => (
+                        <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
                             <ProductCard key={index} {...product} ColorChoice={true} />
-                        </Link>
-                    ))}
+                        </Link>))}
                 </div>
                 <div className={classes['Pagination']}>
                     <span className={classes['next-prev']}>PREV</span>
