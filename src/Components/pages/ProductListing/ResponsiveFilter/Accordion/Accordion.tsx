@@ -24,5 +24,3 @@ const AccordionContent = (props: accordionProps) => {
 }
 
 export default AccordionContent
-
-const AccordionHead=(props:accordionProps)=>{}

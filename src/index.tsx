@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { FilterContextProvider } from './Context/Filter_context';
+import { Provider } from 'react-redux';
+import { Store } from './ReduxTool/State/Store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <FilterContextProvider>
+    <Provider store={Store}>
     <App />
-    </FilterContextProvider>
+    </Provider>
   </React.StrictMode>
 );
 

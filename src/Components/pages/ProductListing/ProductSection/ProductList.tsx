@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import classes from './ProductList.module.css'
 import ProductCard from '../../../UI/Card/ProductCard/Product-card'
 import { FilterList } from '@mui/icons-material'
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider'
 import { Link } from 'react-router-dom'
 import RespFilter from '../ResponsiveFilter/RespFilter'
-import { useFilterContext } from '../../../../Context/Filter_context'
-
-const Checklist = ['All', 'Zara', 'Levi\'s', 'Adidas', 'Peter England', 'Allen solly', 'Fabindia']
-
-
+import { useDispatch, useSelector } from 'react-redux'
+import ProductListing from '../../../../Data/Product-listing'
+import { filterAll, filterBrand, filterCategory, filterPrice, filterSelect } from '../../../../ReduxTool/Filters/FilterSlice'
 
 const ProductList = () => {
-    const context = useFilterContext();
     const [isShow, setIsShow] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
+    const FilterData = useSelector((state: any) => state.ProductFilter.filterProducts)
+
+    const dispatch = useDispatch();
     const updateWindowWidth = () => {
         setWindowWidth(window.innerWidth);
     };
@@ -30,51 +30,55 @@ const ProductList = () => {
         };
     }, []);
 
-    //getUnique for each fields
-    const getUniqueData = (data: any, property: any) => {
-        let newVal = data.map((curElement: string) => {
-            return curElement[property];
-        })
-        newVal = ["all", ...new Set(newVal)];
-        return newVal;
-    }
+    const minOriginalPrice = ProductListing.reduce((min, product) => Math.min(min, product.productOriginalPrice), Infinity);
+    const maxOriginalPrice = ProductListing.reduce((max, product) => Math.max(max, product.productOriginalPrice), -Infinity);
 
-    //getUnique data
-    const categoryOnlyData = getUniqueData(context?.all_products, "productCategory");
-    const PriceOnlyData = getUniqueData(context.all_products, "productOriginalPrice");
-    const BrandOnlyData = getUniqueData(context.all_products, "productBrand");
+
     return (
         <div className={classes['product-list-main']}>
             <div className={classes['product-filter']}>
                 <div className={classes['filter-by']}>
                     <h3>Filter by</h3>
-                    {categoryOnlyData.map((curElement: string, index: any) => {
-                        return (
-                            <span key={index} data-name='productCategory' data-value={curElement} onClick={
-                                context.updateFilterValue
-                            }>
-                                {curElement}
-                            </span>
-                        )
-                    })}
+                    {["All", ...new Set(ProductListing.map(product => product.productCategory))].map((category, index) => (
+                        <span key={index} data-name='productCategory' data-value={category} onClick={() => {
+                            dispatch(filterCategory(category))
+                            dispatch(filterAll())
+                        }}>
+                            {category}
+                        </span>
+                    ))}
+
                 </div>
                 <div className={classes['filter-price']}>
                     <h4>Price</h4>
                     <MultiRangeSlider
-                        min={0}
-                        max={1000}
-                        onChange={({ min, max }) => { }}
+                        min={minOriginalPrice}
+                        max={maxOriginalPrice}
+                        onChange={({ min, max }) => {
+                            dispatch(filterPrice({ min, max }))
+                        }}
+                        onDispatchFilter={() => {
+                            dispatch(filterAll())
+                        }}
                     />
                 </div>
                 <div className={classes['filter-brand']}>
                     <h4>Brands</h4>
                     <div>
                         <div className={classes.checkList}>
-                            {BrandOnlyData.map((item:string, index:any) => {
+                            {["All", ...new Set(ProductListing.map(product => product.productBrand))].map((brand, index) => {
                                 return (
                                     <div key={index}>
-                                        <input type="checkbox" id={item} data-name='productBrand' data-value={item} onClick={context.updateFilterValue}/>
-                                        <label htmlFor={item}>{item}</label>
+                                        <input
+                                            type="checkbox"
+                                            data-name='productBrand'
+                                            data-value={brand}
+                                            onClick={() => {
+                                                dispatch(filterBrand(brand))
+                                                dispatch(filterAll())
+                                            }}
+                                        />
+                                        {brand.toUpperCase()}
                                     </div>
                                 )
                             })}
@@ -88,7 +92,10 @@ const ProductList = () => {
                         {isShow && <RespFilter setIsShow={setIsShow} />}
                         <div className={classes.filter}><p onClick={() => setIsShow(!isShow)}>Filter<FilterList /></p></div>
                         <div className={classes.sort}>
-                            <select name="sortBy" id="sortBy" onChange={context.sorting}>
+                            <select name="sortBy" id="sortBy" onChange={(event) => {
+                                dispatch(filterSelect(event.target.value))
+                                dispatch(filterAll())
+                            }}>
                                 <option value="high-low">Price(high-low)</option>
                                 <option value="low-high">Price(low-high)</option>
                                 <option value="newest">Newest Arrivals</option>
@@ -104,7 +111,10 @@ const ProductList = () => {
                         </div>
                         <div className={classes.sorting}>
                             <h4>Sort By:</h4>
-                            <select name="sortBy" id="sortBy" onChange={context.sorting}>
+                            <select name="sortBy" id="sortBy" onChange={(event) => {
+                                dispatch(filterSelect(event.target.value))
+                                dispatch(filterAll())
+                            }}>
                                 <option value="high-low">Price(high-low)</option>
                                 <option value="low-high">Price(low-high)</option>
                                 <option value="newest">Newest Arrivals</option>
@@ -114,10 +124,12 @@ const ProductList = () => {
                     </div>}
 
                 <div className={classes.product}>
-                    {context.filter_products.map((product, index) => (
+                    {FilterData.map((product: any, index: any) => (
                         <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
                             <ProductCard key={index} {...product} ColorChoice={true} />
-                        </Link>))}
+                        </Link>
+
+                    ))}
                 </div>
                 <div className={classes['Pagination']}>
                     <span className={classes['next-prev']}>PREV</span>
@@ -127,7 +139,7 @@ const ProductList = () => {
                     <span className={classes['next-prev']}>NEXT</span>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

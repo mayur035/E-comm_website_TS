@@ -6,6 +6,7 @@ type MultiRangeSliderProps = {
     min: number;
     max: number;
     onChange: (values: { min: number, max: number }) => void;
+    onDispatchFilter: () => void;
 }
 const MultiRangeSlider = (props: MultiRangeSliderProps) => {
     const [minVal, setMinVal] = useState<number>(props.min);
@@ -63,6 +64,8 @@ const MultiRangeSlider = (props: MultiRangeSliderProps) => {
                 setMinVal(value);
                 event.target.value = value.toString();
             }}
+            onMouseLeave={props.onDispatchFilter}
+            onTouchEnd={props.onDispatchFilter}
             className={classnames(styles.thumb, styles["thumb--zindex-3"], {
                 [styles["thumb--zindex-5"]]: minVal > props.max - 100
             })}
@@ -78,6 +81,8 @@ const MultiRangeSlider = (props: MultiRangeSliderProps) => {
                 setMaxVal(value);
                 event.target.value = value.toString();
             }}
+            onMouseLeave={props.onDispatchFilter}
+            onTouchEnd={props.onDispatchFilter}
             className={classnames(styles.thumb, styles["thumb--zindex-4"])}
         />
 
@@ -94,7 +99,8 @@ const MultiRangeSlider = (props: MultiRangeSliderProps) => {
 MultiRangeSlider.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onDispatchFilter: PropTypes.func.isRequired,
 };
 
 export default MultiRangeSlider;

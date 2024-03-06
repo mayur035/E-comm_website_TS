@@ -1,11 +1,14 @@
+import { useSelector } from 'react-redux';
 import ProductCard from '../../../UI/Card/ProductCard/Product-card';
-import BestSellingProduct from '../../../../Data/Best-selling-product';
 import classes from './Best-Product.module.css'
 import { Link, useParams } from 'react-router-dom';
+import { RootState } from '../../../../ReduxTool/State/Store';
+import { productDataSelector } from '../../../../ReduxTool/Data/ProductDataSlice';
 
 
 
 const BestProduct = () => {
+    const ProductData = useSelector(productDataSelector)    
     return (
         <div className={classes['product-container']}>
             <div className={classes['product-content']}>
@@ -14,7 +17,7 @@ const BestProduct = () => {
                 <p>Problems trying to resolve the conflict between</p>
             </div>
             <div className={classes['product-list']}>
-                {BestSellingProduct.map((product) => (
+                {ProductData.map((product) => (
                     <Link key={product.id} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
                         <ProductCard key={product.id} {...product} ColorChoice={true} />
                     </Link>
