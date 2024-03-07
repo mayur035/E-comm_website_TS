@@ -42,7 +42,7 @@
 .product-list-main .product-container .product {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(243px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     row-gap: 30px;
     margin: auto;
     justify-content: center;
@@ -74,9 +74,6 @@
     text-align: center;
     color: #737373;
 }
-
-
-
 
 .product-content .filter p {
     display: flex;

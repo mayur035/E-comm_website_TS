@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import classes from './RespFilter.module.css';
 import ReactDom from 'react-dom';
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider';
 import Drawer from './Drawer/Drawer';
 import Accordion from './Accordion/Accordion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ProductListing from '../../../../Data/Product-listing';
 import { filterAll, filterBrand, filterCategory, filterPrice } from '../../../../ReduxTool/Filters/FilterSlice';
 
@@ -18,13 +18,9 @@ const ModalOverlays: React.FC<{ setIsShow: React.Dispatch<React.SetStateAction<b
 
     const dispatch = useDispatch();
 
-    const handleClick = () => {
-        setIsShow(false)
-    }
     const minOriginalPrice = ProductListing.reduce((min, product) => Math.min(min, product.productOriginalPrice), Infinity);
     const maxOriginalPrice = ProductListing.reduce((max, product) => Math.max(max, product.productOriginalPrice), -Infinity);
 
-   
     return (
         <div className={classes['modal-overlays']}>
             <div className={classes['filter-menu']}>

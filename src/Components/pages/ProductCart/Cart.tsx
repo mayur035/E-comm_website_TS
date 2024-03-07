@@ -2,7 +2,7 @@ import classes from './Cart.module.css'
 import ProductPath from '../../UI/ProductPath/Product-Path'
 import CartTotal from './CartTotal/Cart-total'
 import CartItem from './CartItems/CartItem'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../ReduxTool/State/Store'
 

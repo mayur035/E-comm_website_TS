@@ -2,9 +2,6 @@ import { Facebook, Instagram, Twitter } from '@mui/icons-material'
 import Logo from '../../UI/logo/Logo'
 import classes from './Footer.module.css'
 
-import React from 'react'
-import Button from '../../UI/Button/PrimaryButton'
-
 const Footer = () => {
     return (
         <footer className={classes['footer-main-container']}>

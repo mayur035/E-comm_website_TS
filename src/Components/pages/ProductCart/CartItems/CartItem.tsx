@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import classes from './CartItem.module.css'
 import { Cancel } from '@mui/icons-material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { IconButton } from '@mui/material'
-import { addToCart, descreaseQuantity, increaseQuantity, removeToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
-import { RootState } from '../../../../ReduxTool/State/Store'
+import { descreaseQuantity, increaseQuantity, removeToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
+
 
 interface ProductItemsProps {
     items: {

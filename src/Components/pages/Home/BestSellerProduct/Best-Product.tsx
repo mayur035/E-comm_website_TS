@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
 import ProductCard from '../../../UI/Card/ProductCard/Product-card';
 import classes from './Best-Product.module.css'
-import { Link, useParams } from 'react-router-dom';
-import { RootState } from '../../../../ReduxTool/State/Store';
+import { Link } from 'react-router-dom';
 import { productDataSelector } from '../../../../ReduxTool/Data/ProductDataSlice';
 
 

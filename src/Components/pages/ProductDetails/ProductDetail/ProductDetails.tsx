@@ -1,10 +1,9 @@
-import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility, VisibilityTwoTone } from '@mui/icons-material'
+import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility} from '@mui/icons-material'
 import { Assets } from '../../../../Assets/Assets'
 import classes from './ProductDetails.module.css'
 import Button from '../../../UI/Button/PrimaryButton'
 import { IconButton } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../../ReduxTool/State/Store'
+import { useDispatch } from 'react-redux'
 import { addToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
 import { useParams } from 'react-router'
 
