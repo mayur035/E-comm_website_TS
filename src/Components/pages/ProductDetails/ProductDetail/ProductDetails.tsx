@@ -1,10 +1,18 @@
 import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility, VisibilityTwoTone } from '@mui/icons-material'
 import { Assets } from '../../../../Assets/Assets'
 import classes from './ProductDetails.module.css'
-import React from 'react'
 import Button from '../../../UI/Button/PrimaryButton'
+import { IconButton } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../../ReduxTool/State/Store'
+import { addToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
+import { useParams } from 'react-router'
 
 const ProductDetails = () => {
+    // const cartSelector = useSelector((state:RootState) =>state.ProductCart.cartItems)
+    const { productID } = useParams();
+    
+    const dispatch = useDispatch();    
     return (
         <div className={classes['product-details-main']}>
             <div className={classes['product-details-image']}>image</div>
@@ -26,9 +34,9 @@ const ProductDetails = () => {
                     <div className={classes.options}>
                         <Button buttonType='solid' buttonColor='blue' >Select Option</Button>
                         <div className={classes['like-cart-visible']}>
-                            <FavoriteBorderOutlined className={classes.icon} />
-                            <ShoppingCartOutlined className={classes.icon} />
-                            <Visibility className={classes.icon} />
+                            <IconButton><FavoriteBorderOutlined className={classes.icon} /></IconButton>
+                            <IconButton onClick={()=>{dispatch(addToCart(productID))}}><ShoppingCartOutlined className={classes.icon} /></IconButton>
+                            <IconButton><Visibility className={classes.icon} /></IconButton>
                         </div>
                     </div>
                 </div>

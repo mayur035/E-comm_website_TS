@@ -1,6 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import ProductListing from "../../Data/Product-listing";
-import { RootState } from "../State/Store";
 
 interface FilterState {
     filterProducts: any[];
@@ -54,7 +53,6 @@ const ProductFilter = createSlice({
         },
         filterSelect: (state, action) => {
             try {
-                console.log(action.payload);
                 state.filterSelect = action.payload        
             }
             catch (e) {
@@ -80,12 +78,12 @@ const ProductFilter = createSlice({
                     FilterData = FilterData.filter((product) => product.productOriginalPrice >= state.filterPrice.min && product.productOriginalPrice <= state.filterPrice.max);
                 }
                 if (state.filterSelect === "high-low") {
-                    const assendingSort = FilterData.sort((a, b) => a.productOriginalPrice - b.productOriginalPrice)
-                    FilterData = assendingSort
+                    const desendingSort = FilterData.sort((a, b) => b.productOriginalPrice - a.productOriginalPrice)
+                    FilterData = desendingSort
                 }
                 if (state.filterSelect === "low-high") {
-                    const desendingSort = FilterData.sort((a, b) => a.productOriginalPrice - b.productOriginalPrice)
-                    FilterData = desendingSort
+                    const assendingSort = FilterData.sort((a, b) => a.productOriginalPrice - b.productOriginalPrice)
+                    FilterData = assendingSort
                 }
 
                 state.filterProducts = FilterData;

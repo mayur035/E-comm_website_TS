@@ -125,8 +125,8 @@ const ProductList = () => {
 
                 <div className={classes.product}>
                     {FilterData.map((product: any, index: any) => (
-                        <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`}>
-                            <ProductCard key={index} {...product} ColorChoice={true} />
+                        <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`} >
+                            <ProductCard key={index} {...product} ColorChoice={true}/>
                         </Link>
 
                     ))}

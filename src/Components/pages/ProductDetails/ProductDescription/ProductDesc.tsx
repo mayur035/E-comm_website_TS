@@ -1,6 +1,5 @@
 import { Assets } from '../../../../Assets/Assets'
 import classes from './ProductDesc.module.css'
-import React from 'react'
 
 const ProductDesc = () => {
     return (

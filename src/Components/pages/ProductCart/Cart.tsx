@@ -2,24 +2,13 @@ import classes from './Cart.module.css'
 import ProductPath from '../../UI/ProductPath/Product-Path'
 import CartTotal from './CartTotal/Cart-total'
 import CartItem from './CartItems/CartItem'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../ReduxTool/State/Store'
 
 const Cart = () => {
-    // const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-    // const updateWindowWidth = () => {
-    //     setWindowWidth(window.innerWidth);
-    // };
-
-    // useEffect(() => {
-    //     window.addEventListener('resize', updateWindowWidth);
-
-    //     // Cleanup function to remove event listener
-    //     return () => {
-    //         window.removeEventListener('resize', updateWindowWidth);
-    //     };
-    // }, []);
-
+    const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems);
+    
     return (
         <div className={classes['cart-main']}>
             <ProductPath />
@@ -34,10 +23,12 @@ const Cart = () => {
                     </div>
                     <hr />
                     <div className={classes.cartItems}>
-
-                        <CartItem />
-                        <hr />
-                      
+                        {cartSelector.map((item, index) => (
+                            <React.Fragment key={index}>
+                                <CartItem items={item}/>
+                                <hr />
+                            </React.Fragment>
+                        ))}
                     </div>
                 </div>
                 <div className={classes['cart-total-content']}>

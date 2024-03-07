@@ -3,10 +3,17 @@ import classes from './Light-Nav.module.css'
 import { useState } from 'react'
 import Logo from '../../UI/logo/Logo'
 import { Link } from 'react-router-dom'
+import { Badge } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../ReduxTool/State/Store'
 
 
 const LightNavbar = () => {
     const [Mobile, setMobile] = useState<boolean>(false)
+
+    const CartItemSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
+    const numberOfCartItems = CartItemSelector.length;
+
 
     const toggleMobileMenu = () => {
         setMobile(!Mobile);
@@ -32,7 +39,7 @@ const LightNavbar = () => {
                     <ul>
                         <li><a href="#"><PersonOutlineOutlined /> Login/Signup</a></li>
                         <li><a href="#"><SearchOutlined /></a></li>
-                        <li><Link to='/cart' onClick={closeMobileMenu}><ShoppingCartOutlined /></Link></li>
+                        <li><Link to='/cart' onClick={closeMobileMenu}><Badge badgeContent={numberOfCartItems} color="primary"><ShoppingCartOutlined /></Badge></Link></li>
                         <li><a href="#" onClick={closeMobileMenu}><FavoriteBorderOutlined /></a></li>
                     </ul>
                 </div>
