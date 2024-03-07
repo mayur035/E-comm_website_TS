@@ -58,6 +58,7 @@ const CartItem = (props: ProductItemsProps) => {
                     <div className={classes['cart-quantity-manage']}>
                         <button onClick={() => dispatch(descreaseQuantity(items.id))} style={{ fontSize: '20px', padding: '0px 5px', background: 'transparent' }}>-</button>
                         <span>{items.productQuantity}</span>
+                        
                         <button onClick={() => dispatch(increaseQuantity(items.id))} style={{ fontSize: '20px', padding: '0px 5px', background: 'transparent' }}>+</button>
                     </div>
                 </div>

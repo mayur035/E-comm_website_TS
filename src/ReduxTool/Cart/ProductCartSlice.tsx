@@ -14,10 +14,10 @@ interface CartState {
         productBrand: string;
         productQuantity: number;
     }[],
-    isOrderConfirmed: boolean;
+    isPopupVisible : boolean;
 }
 
-const initialState: CartState = { cartItems: [], isOrderConfirmed: false };
+const initialState: CartState = { cartItems: [], isPopupVisible : false };
 
 const ProductCart = createSlice({
     name: 'ProductCart',
@@ -71,12 +71,10 @@ const ProductCart = createSlice({
                 console.log(e);
             }
         },
-        emptyCart: (state, action) => {
+        emptyCart: (state) => {
             try {
-                state.isOrderConfirmed = action.payload;
-                console.warn(action.payload);
+                state.isPopupVisible  = true;
                 state.cartItems = [];
-
             }
             catch (e) {
                 console.log(e);

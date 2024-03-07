@@ -42,6 +42,7 @@ import EllipsePurple from './About-us/Ellipse-purple.svg'
 import ErrorPage from './NotFound/404Error.svg'
 import AddtoCart from './NotFound/AddtoCart.svg'
 import NoProductFound from './NotFound/NoProductFound.svg'
+import ConfirmOrder from './NotFound/Animation.json'
 
 export const Assets =
 {
@@ -89,7 +90,10 @@ export const Assets =
         EllipsePurple:EllipsePurple,
         ErrorPage:ErrorPage,
         AddtoCart:AddtoCart,
-        NoProductFound:NoProductFound
+        NoProductFound:NoProductFound, 
+    },
+    json:{
+        ConfirmOrder:ConfirmOrder
     }
 }
 
