@@ -39,7 +39,9 @@ import videoCardImg from './About-us/Video card.svg'
 import aboutHero from './About-us/technology 1.svg'
 import EllipsePink from './About-us/Ellipse-pink.svg'
 import EllipsePurple from './About-us/Ellipse-purple.svg'
-import ErrorPage from './PageNotFound/404Error.svg'
+import ErrorPage from './NotFound/404Error.svg'
+import AddtoCart from './NotFound/AddtoCart.svg'
+import NoProductFound from './NotFound/NoProductFound.svg'
 
 export const Assets =
 {
@@ -85,7 +87,9 @@ export const Assets =
         aboutHero:aboutHero,
         EllipsePink:EllipsePink,
         EllipsePurple:EllipsePurple,
-        ErrorPage:ErrorPage
+        ErrorPage:ErrorPage,
+        AddtoCart:AddtoCart,
+        NoProductFound:NoProductFound
     }
 }
 

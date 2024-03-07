@@ -107,6 +107,7 @@
 }
 @media (max-width:300px) {
     .product-details-content-inner .options{
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }

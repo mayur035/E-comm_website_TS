@@ -3,9 +3,10 @@ import classes from './CartItem.module.css'
 import { Cancel } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import { IconButton } from '@mui/material'
-import { removeToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
+import { addToCart, descreaseQuantity, increaseQuantity, removeToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
+import { RootState } from '../../../../ReduxTool/State/Store'
 
-interface ProductItemsProps{
+interface ProductItemsProps {
     items: {
         id: string;
         Image: {
@@ -17,15 +18,14 @@ interface ProductItemsProps{
         productOriginalPrice: number;
         productDiscountPrice: number;
         productBrand: string;
+        productQuantity: number;
     };
 }
-const CartItem = (props:ProductItemsProps) => {
-
+const CartItem = (props: ProductItemsProps) => {
     const { items } = props
-    
     const dispatch = useDispatch();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    
+
     const updateWindowWidth = () => {
         setWindowWidth(window.innerWidth);
     };
@@ -42,7 +42,7 @@ const CartItem = (props:ProductItemsProps) => {
         <div className={classes['cart-item-card-main']}>
             <div className={classes['cart-item-detail']}>
                 <div style={{ position: 'relative' }}>
-                <IconButton style={{ position: 'absolute'}} onClick={()=>dispatch(removeToCart(items.id))}><Cancel htmlColor='red'/></IconButton>
+                    <IconButton style={{ position: 'absolute' }} onClick={() => dispatch(removeToCart(items.id))}><Cancel htmlColor='red' /></IconButton>
                     <img height='120px' width='157px' src={items.Image.src} alt={items.Image.alt} />
                 </div>
                 <div className={classes['cart-item-desc']}>
@@ -52,11 +52,16 @@ const CartItem = (props:ProductItemsProps) => {
                 </div>
             </div>
             <div className={classes['cart-item-content']}>
-                <div className={classes['cart-item-subtotal']}>{windowWidth <= 320 && <b>Subtotal :</b>}$200</div>
                 <div className={classes['cart-item-quantity']}>
-                    {windowWidth <= 320 && <b>Quantity :</b>}
-                    <input type="number" min='1' style={{ height: '35px', width: '72px' }} />
+                    {windowWidth <= 650 && <b>Quantity :</b>}
+                    {/* <input type="number" min='1' style={{ height: '35px', width: '72px' }} /> */}
+                    <div className={classes['cart-quantity-manage']}>
+                        <button onClick={() => dispatch(descreaseQuantity(items.id))} style={{ fontSize: '20px', padding: '0px 5px', background: 'transparent' }}>-</button>
+                        <span>{items.productQuantity}</span>
+                        <button onClick={() => dispatch(increaseQuantity(items.id))} style={{ fontSize: '20px', padding: '0px 5px', background: 'transparent' }}>+</button>
+                    </div>
                 </div>
+                <div className={classes['cart-item-subtotal']}>{windowWidth <= 650 && <b>Subtotal :</b>}${(items.productQuantity * items.productDiscountPrice).toFixed(2)}</div>
             </div>
         </div>
     )

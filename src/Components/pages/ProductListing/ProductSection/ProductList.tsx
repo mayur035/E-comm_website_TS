@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './ProductList.module.css'
 import ProductCard from '../../../UI/Card/ProductCard/Product-card'
 import { FilterList } from '@mui/icons-material'
@@ -8,6 +8,7 @@ import RespFilter from '../ResponsiveFilter/RespFilter'
 import { useDispatch, useSelector } from 'react-redux'
 import ProductListing from '../../../../Data/Product-listing'
 import { filterAll, filterBrand, filterCategory, filterPrice, filterSelect } from '../../../../ReduxTool/Filters/FilterSlice'
+import { Assets } from '../../../../Assets/Assets'
 
 const ProductList = () => {
     const [isShow, setIsShow] = useState(false);
@@ -16,14 +17,10 @@ const ProductList = () => {
     const FilterData = useSelector((state: any) => state.ProductFilter.filterProducts)
 
     const dispatch = useDispatch();
-    const updateWindowWidth = () => {
-        setWindowWidth(window.innerWidth);
-    };
-
+    const updateWindowWidth = () => { setWindowWidth(window.innerWidth); };
 
     useEffect(() => {
         window.addEventListener('resize', updateWindowWidth);
-
         // Cleanup function to remove event listener
         return () => {
             window.removeEventListener('resize', updateWindowWidth);
@@ -47,7 +44,6 @@ const ProductList = () => {
                             {category}
                         </span>
                     ))}
-
                 </div>
                 <div className={classes['filter-price']}>
                     <h4>Price</h4>
@@ -122,24 +118,32 @@ const ProductList = () => {
                             </select>
                         </div>
                     </div>}
+                {FilterData.length === 0 ?
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%',width:'100%' }}>
+                        <h1>No Product Found</h1>
+                        <img src={Assets.images.NoProductFound} height='50%' width='50%' alt="" />
+                    </div>
+                    :
+                    <React.Fragment>
+                        <div className={classes.product}>
+                            {FilterData.map((product: any, index: any) => (
+                                <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`} >
+                                    <ProductCard key={index} {...product} ColorChoice={true} />
+                                </Link>
 
-                <div className={classes.product}>
-                    {FilterData.map((product: any, index: any) => (
-                        <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`} >
-                            <ProductCard key={index} {...product} ColorChoice={true}/>
-                        </Link>
-
-                    ))}
-                </div>
-                <div className={classes['Pagination']}>
-                    <span className={classes['next-prev']}>PREV</span>
-                    <span className={classes.pageNo}>1</span>
-                    <span className={classes.pageNo}>2</span>
-                    <span className={classes.pageNo}>3</span>
-                    <span className={classes['next-prev']}>NEXT</span>
-                </div>
+                            ))}
+                        </div>
+                        <div className={classes['Pagination']}>
+                            <span className={classes['next-prev']}>PREV</span>
+                            <span className={classes.pageNo}>1</span>
+                            <span className={classes.pageNo}>2</span>
+                            <span className={classes.pageNo}>3</span>
+                            <span className={classes['next-prev']}>NEXT</span>
+                        </div>
+                    </React.Fragment>
+                }
             </div>
-        </div >
+        </div>
     )
 }
 

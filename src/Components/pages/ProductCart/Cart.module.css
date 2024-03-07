@@ -70,8 +70,8 @@
     }
 }
 
-@media (max-width:320px) {
-    .cart-item-header .cart-quantity-total{
+@media (max-width:650px) {
+    .cart-container .cart-item-list .cart-item-header  {
         display: none;
     }
 }

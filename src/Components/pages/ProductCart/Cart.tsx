@@ -8,7 +8,6 @@ import { RootState } from '../../../ReduxTool/State/Store'
 
 const Cart = () => {
     const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems);
-    
     return (
         <div className={classes['cart-main']}>
             <ProductPath />
@@ -17,15 +16,15 @@ const Cart = () => {
                     <div className={classes['cart-item-header']}>
                         <p className={classes['cart-product']}>Product</p>
                         <div className={classes['cart-quantity-total']}>
-                            <p className={classes['cart-subtotal-heading']}>Sub Total</p>
                             <p className={classes['cart-quanity-heading']}>Quanity</p>
+                            <p className={classes['cart-subtotal-heading']}>Sub Total</p>
                         </div>
                     </div>
                     <hr />
                     <div className={classes.cartItems}>
                         {cartSelector.map((item, index) => (
                             <React.Fragment key={index}>
-                                <CartItem items={item}/>
+                                <CartItem items={item} />
                                 <hr />
                             </React.Fragment>
                         ))}
