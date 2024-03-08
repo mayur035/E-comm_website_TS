@@ -1,32 +1,57 @@
 import React, { ChangeEvent } from 'react'
 import classes from './Signup.module.css'
 import { Facebook, Google, LinkedIn } from '@mui/icons-material'
+import { ToastFunc } from '../../../../utils/ToastFun'
 
 const Signup = () => {
-
     const [state, setState] = React.useState({
         name: "",
         email: "",
         password: ""
-      });
-      const handleChange = (evt:ChangeEvent<HTMLInputElement>) => {
+    });
+    const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
         const value = evt.target.value;
         setState({
-          ...state,
-          [evt.target.name]: value
+            ...state,
+            [evt.target.name]: value
         });
-      };
+    };
 
-    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log('submit')
-    }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Password validation regex
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        // Check if name, email, and password are not empty
+        if (state.name.trim() === '' || state.email.trim() === '' || state.password.trim() === '') {
+            ToastFunc("Please fill in all fields", "warn");
+            return;
+        }
+
+        // Check if email is valid
+        if (!emailRegex.test(state.email)) {
+            ToastFunc("Email is not valid", "warn");
+            return;
+        }
+
+        // Check if password matches the regex
+        if (!passwordRegex.test(state.password)) {
+            ToastFunc("Password must be at least 8 characters long and contain at least one uppercase letter, one digit, and one special character", "warn");
+            return;
+        }
+
+        // If all validations pass, submit the form
+        console.log('submit');
+    };
     return (
         <div className={classes['signup-main-container']}>
             <form onSubmit={handleSubmit} className={classes.from_control}>
                 <h1 className={classes.heading}>Create Account</h1>
-                <div className={classes['social-container']}
-                >
+                <div className={classes['social-container']}>
                     <a href=""><Facebook className={classes.social} /></a>
                     <a href=""><Google className={classes.social} /></a>
                     <a href=""><LinkedIn className={classes.social} /></a>
@@ -54,12 +79,11 @@ const Signup = () => {
                         onChange={handleChange}
                         placeholder="Password"
                     />
-                    <button>Sign Up</button>
-
+                    <button type="submit">Sign Up</button>
                 </div>
             </form>
         </div>
     )
 }
 
-export default Signup
+export default Signup;

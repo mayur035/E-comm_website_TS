@@ -7,6 +7,7 @@
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 1px 1px 20px 0px rgba(227, 219, 219, 0.714);
+    flex-direction: column;
 }
 
 #Regcontainer .regForm {

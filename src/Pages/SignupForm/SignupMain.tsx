@@ -36,13 +36,13 @@ const SignupMain = () => {
             window.removeEventListener('resize', updateWindowWidth);
         };
     }, []);
-    const containerClass = `${type === "signUp" ? classes["right-panel-active"] : ""}`;
-    console.log(scroll);
-    
+
+    const containerClass = `${type === "signUp" ? classes["right-panel-active"] : ""}`;    
     const scrollClass = `${scroll === "signUp" ? classes["bottom-panel-active"] : ""}`;
+    
     return (
         <div id={classes.Regcontainer}>
-            {window.innerWidth <= 768 &&
+            {windowWidth <= 768 &&
                 <div className={classes['responsive-bar-button']}>
                     <button id="signIn"
                         onClick={() => scrollOnClick("signIn")}>Login</button>
