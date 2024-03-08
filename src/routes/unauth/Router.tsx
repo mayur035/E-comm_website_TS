@@ -10,6 +10,9 @@ import ContactUsMain from '../../Pages/ContactUsMain'
 import ErrorPage from '../../Pages/ErrorPage'
 import ProductDetailsMain from '../../Pages/ProductDetailsMain'
 import ScrollToTop from '../scrollToTop'
+import SignUpForm from '../../Components/pages/Registration/Signup/Signup'
+import SignInForm from '../../Components/pages/Registration/Signin/SignIn'
+import SignupMain from '../../Pages/SignupForm/SignupMain'
 const Router = () => {
     return (
         <React.Fragment>
@@ -46,8 +49,10 @@ export const Routers = createBrowserRouter([
             },{
                 path:'/contactUs',
                 element:<ContactUsMain/>
+            },{
+                path:'/signup',
+                element:<SignupMain/>
             }
-    
         ]
     }
 ])

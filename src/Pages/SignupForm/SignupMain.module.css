@@ -1,0 +1,103 @@
+#Regcontainer {
+    position: relative;
+    display: flex;
+    margin: auto;
+    max-width: 1440px;
+    height: 480px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 1px 1px 20px 0px rgba(227, 219, 219, 0.714);
+}
+
+#Regcontainer .regForm {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#Regcontainer .regForm .signup,
+#Regcontainer .regForm .signin {
+    flex: 1;
+}
+
+.overlay-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: all 0.9s ease;
+}
+
+.overlay-container .overlay {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 200%;
+    overflow: hidden;
+    background-color: pink;
+    border-radius: 30px;
+
+}
+
+.right-panel-active {
+    left: -50%
+}
+
+.overlay-container .overlay .overlay-left {
+    flex: 1;
+}
+
+.overlay-container .overlay .overlay-right {
+    flex: 1;
+}
+
+.overlay-container .overlay .overlay-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+#Regcontainer .responsive-bar-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    #Regcontainer {
+        flex-direction: column;
+    }
+    #Regcontainer .responsive-bar-button{
+        z-index: 15;
+    }
+
+    #Regcontainer .regForm .signup,
+    #Regcontainer .regForm .signin {
+        margin: 45px 0px;
+    }
+
+    #Regcontainer .regForm {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        height: 90%;
+        width: 100%;
+        bottom: 0;
+        transition: all 0.3s ease;
+    }
+
+    .bottom-panel-active{
+        transform: translateY(-100%);
+    }
+    .overlay-container {
+        display: none;
+    }
+}

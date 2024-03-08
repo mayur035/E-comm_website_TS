@@ -37,8 +37,8 @@ const LightNavbar = () => {
                         <li><a href="#" onClick={closeMobileMenu}>Pages</a></li>
                     </ul>
                     <ul>
-                        <li><a href="#"><PersonOutlineOutlined /> Login/Signup</a></li>
-                        <li><a href="#"><SearchOutlined /></a></li>
+                        <li><Link to='/signup' onClick={closeMobileMenu}><PersonOutlineOutlined /> Login/Signup</Link></li>
+                        <li><a href="#" onClick={closeMobileMenu}><SearchOutlined /></a></li>
                         <li><Link to='/cart' onClick={closeMobileMenu}><Badge badgeContent={numberOfCartItems} color="primary"><ShoppingCartOutlined /></Badge></Link></li>
                         <li><a href="#" onClick={closeMobileMenu}><FavoriteBorderOutlined /></a></li>
                     </ul>

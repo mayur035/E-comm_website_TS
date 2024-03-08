@@ -6,17 +6,7 @@ import { Assets } from '../Assets/Assets';
 import { Link } from 'react-router-dom';
 
 const CartMain = () => {
-  // const [popup, setPopup] = useState<boolean>();
   const cartSelector = useSelector((state: RootState) => state.ProductCart);
-  // const dispatch = useDispatch()
-
-  // const timePopup=()=>{
-  //   setPopup(cartSelector.isPopupVisible)
-  //   setTimeout(()=>{
-  //     dispatch(hidePopup())
-  //   },5000)
-  // }
-
   return (
     <React.Fragment>
       {/* {cartSelector.isPopupVisible && <h1>hello</h1>} */}
