@@ -2,8 +2,17 @@ import { ChangeEvent, useState } from 'react'
 import classes from './SignIn.module.css'
 import { Facebook, Google, LinkedIn } from '@mui/icons-material';
 import { ToastFunc } from '../../../../utils/ToastFun';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setIsAuthenticated } from '../../../../ReduxTool/Auth/AuthDataSlice';
 
+type userData={
+  email: string;
+  password: string;
+}
 const SignIn = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     email: "",
     password: ""
@@ -36,6 +45,15 @@ const SignIn = () => {
       ToastFunc("Password is not valid", "warn")
       return;
     }
+
+    const userData:userData={
+      email: state.email,
+      password: state.password,
+    }
+    dispatch(setIsAuthenticated({userData:userData,token:'dummytoken'}))
+    ToastFunc("Login successful", "success")
+    navigate('/')
+    
   };
   const isDisabled = state.email.trim() === '' || state.password.trim() === '';
 

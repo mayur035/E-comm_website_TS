@@ -1,21 +1,35 @@
-import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility} from '@mui/icons-material'
+import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility } from '@mui/icons-material'
 import { Assets } from '../../../../Assets/Assets'
 import classes from './ProductDetails.module.css'
 import Button from '../../../UI/Button/PrimaryButton'
 import { IconButton } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
-import { useParams } from 'react-router'
+import { redirect, useParams } from 'react-router'
+import { RootState } from '../../../../ReduxTool/State/Store'
+import { ToastFunc } from '../../../../utils/ToastFun'
 
 const ProductDetails = () => {
     // const cartSelector = useSelector((state:RootState) =>state.ProductCart.cartItems)
     const { productID } = useParams();
-    
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();
+    const checkAuthUser = useSelector((state: RootState) => state.AuthUserData.token);
+    console.log(checkAuthUser);
+
+    const ClickToAdd = () => {
+        if (checkAuthUser) {
+            dispatch(addToCart(productID))
+            ToastFunc("Product added to cart", 'success')
+        } else {
+            redirect('/signup')
+            ToastFunc("Please Register", "error")
+        }
+    }
+
     return (
         <div className={classes['product-details-main']}>
             <div className={classes['product-details-image']}>image</div>
-            
+
             <div className={classes['product-details-content-main']}>
                 <div className={classes['product-details-content-inner']}>
                     <h4>Floating Phone</h4>
@@ -34,7 +48,7 @@ const ProductDetails = () => {
                         <Button buttonType='solid' buttonColor='blue' >Select Option</Button>
                         <div className={classes['like-cart-visible']}>
                             <IconButton><FavoriteBorderOutlined className={classes.icon} /></IconButton>
-                            <IconButton onClick={()=>{dispatch(addToCart(productID))}}><ShoppingCartOutlined className={classes.icon} /></IconButton>
+                            <IconButton onClick={ClickToAdd}><ShoppingCartOutlined className={classes.icon} /></IconButton>
                             <IconButton><Visibility className={classes.icon} /></IconButton>
                         </div>
                     </div>

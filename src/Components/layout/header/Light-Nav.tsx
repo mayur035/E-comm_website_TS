@@ -1,15 +1,19 @@
-import { FavoriteBorderOutlined, PersonOutlineOutlined, SearchOutlined, ShoppingCartOutlined, Menu, Close } from '@mui/icons-material'
+import { FavoriteBorderOutlined, PersonOutlineOutlined, SearchOutlined, ShoppingCartOutlined, Menu, Close, Logout } from '@mui/icons-material'
 import classes from './Light-Nav.module.css'
 import { useState } from 'react'
 import Logo from '../../UI/logo/Logo'
 import { Link } from 'react-router-dom'
 import { Badge } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../ReduxTool/State/Store'
+import { logOut } from '../../../ReduxTool/Auth/AuthDataSlice'
 
 
 const LightNavbar = () => {
     const [Mobile, setMobile] = useState<boolean>(false)
+    
+    const dispatch = useDispatch();
+    const dataSelector = useSelector((state:RootState) => state.AuthUserData.token)
 
     const CartItemSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
     const numberOfCartItems = CartItemSelector.length;
@@ -37,7 +41,10 @@ const LightNavbar = () => {
                         <li><a href="#" onClick={closeMobileMenu}>Pages</a></li>
                     </ul>
                     <ul>
-                        <li><Link to='/signup' onClick={closeMobileMenu}><PersonOutlineOutlined /> Login/Signup</Link></li>
+                        {dataSelector ?
+                            <li onClick={()=>dispatch(logOut())}><Logout/>LogOut</li> :
+                            <li><Link to='/signup' onClick={closeMobileMenu}><PersonOutlineOutlined />Login/Signup</Link></li>
+                        }
                         <li><a href="#" onClick={closeMobileMenu}><SearchOutlined /></a></li>
                         <li><Link to='/cart' onClick={closeMobileMenu}><Badge badgeContent={numberOfCartItems} color="primary"><ShoppingCartOutlined /></Badge></Link></li>
                         <li><a href="#" onClick={closeMobileMenu}><FavoriteBorderOutlined /></a></li>

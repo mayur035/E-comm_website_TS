@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { Routers } from './routes/unauth/Router';
+import { Routers } from './routes/Router';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
