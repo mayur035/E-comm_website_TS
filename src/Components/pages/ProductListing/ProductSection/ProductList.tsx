@@ -74,7 +74,7 @@ const ProductList = () => {
                                                 dispatch(filterAll())
                                             }}
                                         />
-                                        {brand.toUpperCase()}
+                                        <label>{brand.toUpperCase()}</label>
                                     </div>
                                 )
                             })}
@@ -119,7 +119,7 @@ const ProductList = () => {
                         </div>
                     </div>}
                 {FilterData.length === 0 ?
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%',width:'100%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%', width: '100%' }}>
                         <h1>No Product Found</h1>
                         <img src={Assets.images.NoProductFound} height='50%' width='50%' alt="" />
                     </div>
