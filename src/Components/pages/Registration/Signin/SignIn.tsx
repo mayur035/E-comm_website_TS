@@ -5,6 +5,7 @@ import { ToastFunc } from '../../../../utils/ToastFun';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setIsAuthenticated } from '../../../../ReduxTool/Auth/AuthDataSlice';
+import Button from '../../../UI/Button/PrimaryButton';
 
 type userData={
   email: string;
@@ -82,7 +83,9 @@ const SignIn = () => {
             onChange={handleChange}
             placeholder="Password"
           />
-          <button disabled={isDisabled}>Log in</button>
+          <div className={classes.regBtn}>
+          <Button disabled={isDisabled}>Log in</Button>
+          </div>
         </div>
       </form>
 

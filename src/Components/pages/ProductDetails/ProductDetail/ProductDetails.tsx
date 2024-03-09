@@ -5,36 +5,52 @@ import Button from '../../../UI/Button/PrimaryButton'
 import { IconButton } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
-import { redirect, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { RootState } from '../../../../ReduxTool/State/Store'
 import { ToastFunc } from '../../../../utils/ToastFun'
 
 const ProductDetails = () => {
-    // const cartSelector = useSelector((state:RootState) =>state.ProductCart.cartItems)
+    const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
+    const productList = useSelector((state: RootState) => state.ProductData)
+    console.log(productList);
+    
+    console.log(cartSelector);
+    
+    const navigate = useNavigate();
     const { productID } = useParams();
     const dispatch = useDispatch();
     const checkAuthUser = useSelector((state: RootState) => state.AuthUserData.token);
-    console.log(checkAuthUser);
 
+    const isAlreadyInCart = cartSelector.find((item) => item.id === productID)
+    const productDetail = productList.find((item)=>item.id === productID)
+    console.log(productDetail);
+    
+    
     const ClickToAdd = () => {
         if (checkAuthUser) {
+            if (isAlreadyInCart) {
+                ToastFunc('Product is already in cart', "warn")
+                return;
+            }
             dispatch(addToCart(productID))
             ToastFunc("Product added to cart", 'success')
         } else {
-            redirect('/signup')
             ToastFunc("Please Register", "error")
+            navigate('/signup')
         }
     }
 
     return (
         <div className={classes['product-details-main']}>
-            <div className={classes['product-details-image']}>image</div>
+            <div className={classes['product-details-image']}>
+                <img src={productDetail?.Image.src} alt={productDetail?.Image.alt} />
+            </div>
 
             <div className={classes['product-details-content-main']}>
                 <div className={classes['product-details-content-inner']}>
-                    <h4>Floating Phone</h4>
+                    <h4>{productDetail?.productName}</h4>
                     <div className={classes.rating}><img src={Assets.images.stars} alt="stars" /><h6>10 reviews</h6></div>
-                    <h3 className={classes.price}>$1,139.33</h3>
+                    <h3 className={classes.price}><span style={{color:'#737373'}}><del>${productDetail?.productOriginalPrice}</del></span> ${productDetail?.productDiscountPrice}</h3>
                     <div className={classes['availability']}>
                         <h6 className={classes.checkAva}>Availability  :</h6>
                         <h6 className={classes.inStock}>In Stock</h6>

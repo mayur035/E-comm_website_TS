@@ -10,6 +10,12 @@
     display: flex;
     justify-content: center;
 }
+
+.product-details-main .product-details-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .product-details-content-inner{
     max-width: 510px;
     display: flex;
@@ -17,6 +23,7 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: flex-end;
+
 }
 .product-details-content-inner h4 {
     color: #252B42;

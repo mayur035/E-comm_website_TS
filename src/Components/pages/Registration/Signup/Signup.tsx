@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react'
 import classes from './Signup.module.css'
 import { Facebook, Google, LinkedIn } from '@mui/icons-material'
 import { ToastFunc } from '../../../../utils/ToastFun'
+import Button from '../../../UI/Button/PrimaryButton'
 
 const Signup = () => {
     const [state, setState] = React.useState({
@@ -79,7 +80,9 @@ const Signup = () => {
                         onChange={handleChange}
                         placeholder="Password"
                     />
-                    <button type="submit">Sign Up</button>
+                    <div className={classes.regBtn}>
+                    <Button type="submit">Sign Up</Button>
+                    </div>
                 </div>
             </form>
         </div>

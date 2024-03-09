@@ -6,7 +6,7 @@ type buttonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   buttonType?: 'solid' | 'outline';
   buttonColor?: 'green' | 'blue';
 };
-const CustomButton: React.FC<buttonProps> = ({ children, buttonColor = 'green', buttonType = 'solid', ...props }) => {
+const Button: React.FC<buttonProps> = ({ children, buttonColor = 'green', buttonType = 'solid', ...props }) => {
 
   const buttonClassName = buttonColor === 'green' ? (buttonType === 'solid' ? classes.solidGreenBtn : classes.outlineGreenBtn) : (buttonType === 'solid' ? classes.solidBlueBtn : classes.outlineBlueBtn);
 
@@ -20,4 +20,4 @@ const CustomButton: React.FC<buttonProps> = ({ children, buttonColor = 'green', 
   )
 }
 
-export default CustomButton;
+export default Button;

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import ProductListing from "../../Data/Product-listing";
+import { ToastFunc } from "../../utils/ToastFun";
 interface CartState {
     cartItems: {
         id: string;
@@ -28,7 +29,6 @@ const ProductCart = createSlice({
                 const findProductByID = ProductListing.find((items) => items.id === action.payload)
                 const isProductInCart = state.cartItems.some((item) => item.id === findProductByID?.id);
                 if (isProductInCart) {
-                    console.log("Product already in cart");
                     return;
                 }
                 if (findProductByID) {

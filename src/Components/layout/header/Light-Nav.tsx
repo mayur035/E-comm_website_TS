@@ -7,6 +7,7 @@ import { Badge } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../ReduxTool/State/Store'
 import { logOut } from '../../../ReduxTool/Auth/AuthDataSlice'
+import { emptyCart } from '../../../ReduxTool/Cart/ProductCartSlice'
 
 
 const LightNavbar = () => {
@@ -42,7 +43,10 @@ const LightNavbar = () => {
                     </ul>
                     <ul>
                         {dataSelector ?
-                            <li onClick={()=>dispatch(logOut())}><Logout/>LogOut</li> :
+                            <li onClick={()=>{
+                                dispatch(logOut())
+                                dispatch(emptyCart())
+                            }}><Logout/>LogOut</li> :
                             <li><Link to='/signup' onClick={closeMobileMenu}><PersonOutlineOutlined />Login/Signup</Link></li>
                         }
                         <li><a href="#" onClick={closeMobileMenu}><SearchOutlined /></a></li>

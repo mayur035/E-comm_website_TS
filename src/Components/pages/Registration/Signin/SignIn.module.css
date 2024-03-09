@@ -35,3 +35,15 @@
     flex-direction: column;
     gap: 18px;
 }
+
+.from_control .form-input-container>input{
+    padding: 10px 30px;
+    border-radius: 10px;
+}
+
+.from_control .form-input-container .regBtn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
