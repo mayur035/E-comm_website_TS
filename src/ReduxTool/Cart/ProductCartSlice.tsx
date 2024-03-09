@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import ProductListing from "../../Data/Product-listing";
-import { ToastFunc } from "../../utils/ToastFun";
 interface CartState {
     cartItems: {
         id: string;
