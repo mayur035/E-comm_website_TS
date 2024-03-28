@@ -50,7 +50,7 @@ const Signup = () => {
     };
     return (
         <div className={classes['signup-main-container']}>
-            <form onSubmit={handleSubmit} className={classes.from_control}>
+            <form className={classes.from_control}>
                 <h1 className={classes.heading}>Create Account</h1>
                 <div className={classes['social-container']}>
                     <a href=""><Facebook className={classes.social} /></a>
