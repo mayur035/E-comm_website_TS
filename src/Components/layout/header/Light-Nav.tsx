@@ -47,7 +47,7 @@ const LightNavbar = () => {
                                 dispatch(logOut())
                                 dispatch(emptyCart())
                             }}><Logout/>LogOut</li> :
-                            <li><Link to='/signup' onClick={closeMobileMenu}><PersonOutlineOutlined />Login/Signup</Link></li>
+                            <li><Link to='/login' onClick={closeMobileMenu}><PersonOutlineOutlined />Login/Signup</Link></li>
                         }
                         <li><a href="#" onClick={closeMobileMenu}><SearchOutlined /></a></li>
                         <li><Link to='/cart' onClick={closeMobileMenu}><Badge badgeContent={numberOfCartItems} color="primary"><ShoppingCartOutlined /></Badge></Link></li>

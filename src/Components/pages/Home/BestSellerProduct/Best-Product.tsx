@@ -7,7 +7,8 @@ import { productDataSelector } from '../../../../ReduxTool/Data/ProductDataSlice
 
 
 const BestProduct = () => {
-    const ProductData = useSelector(productDataSelector)    
+    const ProductData = useSelector(productDataSelector)   
+     
     return (
         <div className={classes['product-container']}>
             <div className={classes['product-content']}>

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProductListing from '../../../../Data/Product-listing'
 import { filterAll, filterBrand, filterCategory, filterPrice, filterSelect } from '../../../../ReduxTool/Filters/FilterSlice'
 import { Assets } from '../../../../Assets/Assets'
+// import { fetch_categories } from '../../../../ReduxTool/Data/ProductDataSlice'
 
 const ProductList = () => {
     const [isShow, setIsShow] = useState(false);

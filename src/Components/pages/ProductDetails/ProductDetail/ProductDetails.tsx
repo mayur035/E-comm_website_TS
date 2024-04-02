@@ -12,9 +12,6 @@ import { ToastFunc } from '../../../../utils/ToastFun'
 const ProductDetails = () => {
     const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
     const productList = useSelector((state: RootState) => state.ProductData)
-    console.log(productList);
-    
-    console.log(cartSelector);
     
     const navigate = useNavigate();
     const { productID } = useParams();
@@ -23,8 +20,6 @@ const ProductDetails = () => {
 
     const isAlreadyInCart = cartSelector.find((item) => item.id === productID)
     const productDetail = productList.find((item)=>item.id === productID)
-    console.log(productDetail);
-    
     
     const ClickToAdd = () => {
         if (checkAuthUser) {
@@ -35,8 +30,8 @@ const ProductDetails = () => {
             dispatch(addToCart(productID))
             ToastFunc("Product added to cart", 'success')
         } else {
-            ToastFunc("Please Register", "error")
-            navigate('/signup')
+            ToastFunc("Please Register/Login", "error")
+            navigate('/login')
         }
     }
 

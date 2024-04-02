@@ -43,6 +43,8 @@ import ErrorPage from './NotFound/404Error.svg'
 import AddtoCart from './NotFound/AddtoCart.svg'
 import NoProductFound from './NotFound/NoProductFound.svg'
 import ConfirmOrder from './NotFound/Animation.json'
+import Signup from './register/SignUp.svg'
+import Login from './register/login.svg'
 
 export const Assets =
 {
@@ -91,6 +93,8 @@ export const Assets =
         ErrorPage:ErrorPage,
         AddtoCart:AddtoCart,
         NoProductFound:NoProductFound, 
+        Login:Login,
+        Signup:Signup
     },
     json:{
         ConfirmOrder:ConfirmOrder

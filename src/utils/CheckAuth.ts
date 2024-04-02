@@ -15,7 +15,7 @@ export const checkAuthentication:LoaderFunction<any> = async () => {
 
     if(!token){
         ToastFunc("Please Register",'error');
-        return redirect('/signup');
+        return redirect('/login');
     }
     return null;
 }
