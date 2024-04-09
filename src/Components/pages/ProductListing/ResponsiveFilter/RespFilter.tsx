@@ -4,9 +4,9 @@ import ReactDom from 'react-dom';
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider';
 import Drawer from './Drawer/Drawer';
 import Accordion from './Accordion/Accordion';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProductListing from '../../../../Data/Product-listing';
-import { filterAll, filterBrand, filterCategory, filterPrice } from '../../../../ReduxTool/Filters/FilterSlice';
+import { fetch_filter_product } from '../../../../ReduxTool/Filters/FilterSlice'
 
 const BackDrop: React.FC = () => {
     return (
@@ -17,56 +17,67 @@ const BackDrop: React.FC = () => {
 const ModalOverlays: React.FC<{ setIsShow: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setIsShow }) => {
 
     const dispatch = useDispatch();
+    
+    const brands = useSelector((state: any) => state.ProductData.brands);
+    const categories = useSelector((state: any) => state.ProductData.categories);
 
-    const minOriginalPrice = ProductListing.reduce((min, product) => Math.min(min, product.productOriginalPrice), Infinity);
-    const maxOriginalPrice = ProductListing.reduce((max, product) => Math.max(max, product.productOriginalPrice), -Infinity);
+    const filterBrands = useSelector((state: any) => state.ProductFilter.filterBrands)
+
+
+    // const minOriginalPrice = ProductListing.reduce((min, product) => Math.min(min, product.productOriginalPrice), Infinity);
+    // const maxOriginalPrice = ProductListing.reduce((max, product) => Math.max(max, product.productOriginalPrice), -Infinity);
 
     return (
         <div className={classes['modal-overlays']}>
             <div className={classes['filter-menu']}>
 
                 <Accordion accordion_head="Categories">
-                {["All", ...new Set(ProductListing.map(product => product.productCategory))].map((category, index) => (
-                        <span key={index} data-name='productCategory' data-value={category} onClick={() => {
-                            dispatch(filterCategory(category))
-                            dispatch(filterAll())
-                            setIsShow(false)
-                        }}>
-                            {category}
+                    {["All", ...categories.data.map((category: any) => category.name)].map((categoryName, index) => (
+                        <span
+                        key={index}
+                        data-name='productCategory'
+                        data-value={categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug}
+                            onClick={() => {
+                                const slug = categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug;
+                                dispatch(fetch_filter_product({ filterType: 'category', filterValue: slug }));
+                                setIsShow(false)
+                            }}>
+                            {categoryName}
                         </span>
                     ))}
                 </Accordion>
 
                 <Accordion accordion_head="Price">
-                <MultiRangeSlider
-                        min={minOriginalPrice}
-                        max={maxOriginalPrice}
+                    <MultiRangeSlider
+                        min={0}
+                        max={100}
                         onChange={({ min, max }) => {
-                            dispatch(filterPrice({ min, max }))
+                            // dispatch(filterPrice({ min, max }))
                         }}
-                        onDispatchFilter={()=>{
-                            dispatch(filterAll())
+                        onDispatchFilter={() => {
+                            // dispatch(filterAll())
                         }}
                     />
                 </Accordion>
                 <Accordion accordion_head="Brands">
                     <div>
-                    {["All", ...new Set(ProductListing.map(product => product.productBrand))].map((brand, index) => {
-                                return (
-                                    <div key={index}>
-                                        <input
+                        {["All", ...new Set(brands.data.map((product: any) => product.name))].map((brand:any, index) => {
+                            return (
+                                <div key={index}>
+                                    <input
                                             type="checkbox"
                                             data-name='productBrand'
-                                            data-value={brand}
-                                            onClick={() => {
-                                                dispatch(filterBrand(brand))
-                                                dispatch(filterAll())
+                                            data-value={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                            defaultChecked={filterBrands.includes(brand.toLowerCase())}
+                                            onClick={async () => {
+                                                const slug = brand === "All" ? 'All' : await brands.data.find((cat: any) => cat.name === brand)?.slug;
+                                                dispatch(fetch_filter_product({ filterType: 'brands', filterValue: slug }));
                                             }}
                                         />
-                                        {brand.toUpperCase()}
-                                    </div>
-                                )
-                            })}
+                                    {brand.toUpperCase()}
+                                </div>
+                            )
+                        })}
                     </div>
                 </Accordion>
             </div>

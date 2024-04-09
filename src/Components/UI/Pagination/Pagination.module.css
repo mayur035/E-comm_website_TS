@@ -1,0 +1,32 @@
+.pagination {
+    padding: 20px 24px;
+  }
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .container button {
+    padding: 15px 15px;
+    background: transparent;
+    border: 1px solid #BDBDBD;
+    font-weight: 700;
+    color: #23A6F0;
+  }
+  .first_btn {
+    border-radius: 5px 0px 0px 5px;
+    color: #ccc !important;
+  }
+  .next_btn {
+    border-radius: 0px 5px 5px 0px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  

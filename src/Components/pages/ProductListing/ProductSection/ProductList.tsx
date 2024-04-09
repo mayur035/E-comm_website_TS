@@ -1,24 +1,74 @@
 import React, { useEffect, useState } from 'react'
 import classes from './ProductList.module.css'
 import ProductCard from '../../../UI/Card/ProductCard/Product-card'
-import { FilterList } from '@mui/icons-material'
+import { FilterList, Minimize } from '@mui/icons-material'
 import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider'
 import { Link } from 'react-router-dom'
 import RespFilter from '../ResponsiveFilter/RespFilter'
 import { useDispatch, useSelector } from 'react-redux'
-import ProductListing from '../../../../Data/Product-listing'
-import { filterAll, filterBrand, filterCategory, filterPrice, filterSelect } from '../../../../ReduxTool/Filters/FilterSlice'
+import { fetch_filter_product, fetch_brands, fetch_categories, fetch_price } from '../../../../ReduxTool/Filters/FilterSlice'
 import { Assets } from '../../../../Assets/Assets'
-// import { fetch_categories } from '../../../../ReduxTool/Data/ProductDataSlice'
+import Pagination from '../../../UI/Pagination/Pagination'
 
-const ProductList = () => {
+
+const ProductList: React.FC<any> = () => {
+    const dispatch = useDispatch();
+    const updateWindowWidth = () => { setWindowWidth(window.innerWidth); };
+
+    const brands = useSelector((state: any) => state.ProductFilter.brands);
+    const categories = useSelector((state: any) => state.ProductFilter.categories);
+    const price = useSelector((state: any) => state.ProductFilter.price.data);
+    const FilterData = useSelector((state: any) => state.ProductFilter.filterProducts)
+    const filterBrands = useSelector((state: any) => state.ProductFilter.filterBrands)
+    const page = useSelector((state: any) => state.ProductFilter.page)
+    const [currentPage, setCurrentPage] = useState(page);
+
+
+    const totalPages = FilterData.data.pages;
+
     const [isShow, setIsShow] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
-    const FilterData = useSelector((state: any) => state.ProductFilter.filterProducts)
+    const [maxValues, setMaxValues] = useState(0);
+    const [minValues, setMinValues] = useState(0);
 
-    const dispatch = useDispatch();
-    const updateWindowWidth = () => { setWindowWidth(window.innerWidth); };
+    const [visiblePages, setVisiblePages] = useState([1, 2, 3]);
+    useEffect(() => {
+        if (currentPage > visiblePages[visiblePages.length - 1]) {
+            // If current page exceeds the visible range, update visiblePages
+            setVisiblePages([currentPage - 1, currentPage, currentPage + 1]);
+        } else if (currentPage < visiblePages[0]) {
+            // If current page is before the visible range, update visiblePages
+            setVisiblePages([currentPage - 1, currentPage, currentPage + 1]);
+        }
+    }, [currentPage]);
+
+    useEffect(() => {
+        dispatch(fetch_categories());
+        dispatch(fetch_brands());
+        dispatch(fetch_price());
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: currentPage } }))
+    }, []);
+    const changePrev = () => {
+        const prevPage = currentPage - 1;
+        console.log(prevPage);
+
+        setCurrentPage(prevPage);
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: prevPage } }));
+    }
+    const changeNext = () => {
+        const nextPage = currentPage + 1;
+        setCurrentPage(nextPage);
+        console.log(nextPage);
+
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: nextPage } }));
+    }
+
+
+    const goToPage = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: pageNumber } }));
+    };
 
     useEffect(() => {
         window.addEventListener('resize', updateWindowWidth);
@@ -28,8 +78,30 @@ const ProductList = () => {
         };
     }, []);
 
-    const minOriginalPrice = ProductListing.reduce((min, product) => Math.min(min, product.productOriginalPrice), Infinity);
-    const maxOriginalPrice = ProductListing.reduce((max, product) => Math.max(max, product.productOriginalPrice), -Infinity);
+    const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
+
+        if (name === "All") {
+            // If "All" is checked, uncheck all other checkboxes
+            const otherCheckboxes = document.querySelectorAll('input[type="checkbox"]:not([name="All"])');
+            otherCheckboxes.forEach((checkbox) => {
+                (checkbox as HTMLInputElement).checked = false;
+            });
+        } else {
+            // If any other checkbox is checked, uncheck "All" checkbox if it's checked
+            const allCheckbox = document.querySelector('input[type="checkbox"][name="All"]') as HTMLInputElement;
+            if (allCheckbox && allCheckbox.checked) {
+                allCheckbox.checked = false;
+            }
+        }
+
+        //     dispatch(fetch_filter_product({ filterType: 'brands', filterValue: {checked,nameSlug} }));
+        // Dispatch action to update the filter
+        const nameSlug = name === "All" ? "All" : brands.data.find((cat: any) => cat.name.toLowerCase() === name)?.slug;
+        console.log(nameSlug);
+        dispatch(fetch_filter_product({ filterType: 'brands', filterValue: { checked, nameSlug } }));
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
+    }
 
 
     return (
@@ -37,25 +109,33 @@ const ProductList = () => {
             <div className={classes['product-filter']}>
                 <div className={classes['filter-by']}>
                     <h3>Filter by</h3>
-                    {["All", ...new Set(ProductListing.map(product => product.productCategory))].map((category, index) => (
-                        <span key={index} data-name='productCategory' data-value={category} onClick={() => {
-                            dispatch(filterCategory(category))
-                            dispatch(filterAll())
-                        }}>
-                            {category}
+                    {["All", ...categories.data.map((category: any) => category.name)].map((categoryName, index) => (
+                        <span
+                            key={index}
+                            data-name='productCategory'
+                            data-value={categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug}
+                            onClick={() => {
+                                const slug = categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug;
+                                dispatch(fetch_filter_product({ filterType: 'category', filterValue: slug }));
+                                dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
+                            }}
+                        >
+                            {categoryName}
                         </span>
                     ))}
                 </div>
                 <div className={classes['filter-price']}>
                     <h4>Price</h4>
                     <MultiRangeSlider
-                        min={minOriginalPrice}
-                        max={maxOriginalPrice}
-                        onChange={({ min, max }) => {
-                            dispatch(filterPrice({ min, max }))
+                        min={price.minMRP}
+                        max={price.maxMRP}
+                        onChange={({ max, min }) => {
+                            setMaxValues(max);
+                            setMinValues(min);
                         }}
                         onDispatchFilter={() => {
-                            dispatch(filterAll())
+                            dispatch(fetch_filter_product({ filterType: 'price', filterValue: { maxMRP: maxValues, minMRP: minValues } }))
+                            dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
                         }}
                     />
                 </div>
@@ -63,19 +143,22 @@ const ProductList = () => {
                     <h4>Brands</h4>
                     <div>
                         <div className={classes.checkList}>
-                            {["All", ...new Set(ProductListing.map(product => product.productBrand))].map((brand, index) => {
+                            {["All", ...new Set(brands.data.map((product: any) => product.name))].map((brand: any, index) => {
                                 return (
                                     <div key={index}>
                                         <input
                                             type="checkbox"
                                             data-name='productBrand'
-                                            data-value={brand}
-                                            onClick={() => {
-                                                dispatch(filterBrand(brand))
-                                                dispatch(filterAll())
-                                            }}
+                                            data-value={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                            defaultChecked={
+                                                filterBrands.length === 0 ? false : filterBrands.includes(brand.toLowerCase())
+                                            }
+                                            name={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                            onChange={handleCheckChange}
                                         />
-                                        <label>{brand.toUpperCase()}</label>
+                                        <label>
+                                            {brand.toUpperCase()}
+                                        </label>
                                     </div>
                                 )
                             })}
@@ -90,8 +173,9 @@ const ProductList = () => {
                         <div className={classes.filter}><p onClick={() => setIsShow(!isShow)}>Filter<FilterList /></p></div>
                         <div className={classes.sort}>
                             <select name="sortBy" id="sortBy" onChange={(event) => {
-                                dispatch(filterSelect(event.target.value))
-                                dispatch(filterAll())
+                                // dispatch(filterSelect(event.target.value))
+                                // dispatch(filterAll())
+                                // dispatch(fetch_filter_product())
                             }}>
                                 <option value="high-low">Price(high-low)</option>
                                 <option value="low-high">Price(low-high)</option>
@@ -109,8 +193,8 @@ const ProductList = () => {
                         <div className={classes.sorting}>
                             <h4>Sort By:</h4>
                             <select name="sortBy" id="sortBy" onChange={(event) => {
-                                dispatch(filterSelect(event.target.value))
-                                dispatch(filterAll())
+                                // dispatch(filterSelect(event.target.value))
+                                // dispatch(filterAll())
                             }}>
                                 <option value="high-low">Price(high-low)</option>
                                 <option value="low-high">Price(low-high)</option>
@@ -119,7 +203,8 @@ const ProductList = () => {
                             </select>
                         </div>
                     </div>}
-                {FilterData.length === 0 ?
+
+                {FilterData.data.findProducts?.length === 0 ?
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%', width: '100%' }}>
                         <h1>No Product Found</h1>
                         <img src={Assets.images.NoProductFound} height='50%' width='50%' alt="" />
@@ -127,22 +212,46 @@ const ProductList = () => {
                     :
                     <React.Fragment>
                         <div className={classes.product}>
-                            {FilterData.map((product: any, index: any) => (
-                                <Link key={index} style={{ textDecoration: 'none' }} to={`/productDetails/${product.id}`} >
-                                    <ProductCard key={index} {...product} ColorChoice={true} />
-                                </Link>
+                            {FilterData && FilterData.data.findProducts && FilterData.data.findProducts.map((product: any, index: any) => {
+                                // Find the variant where default is true
+                                const defaultVariant = product.productVariants.find((variant: any) => variant.default);
 
-                            ))}
+                                if (defaultVariant && defaultVariant.length === 0) {
+                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%', width: '100%' }}>
+                                        <h1>No Product Found</h1>
+                                        <img src={Assets.images.NoProductFound} height='50%' width='50%' alt="" />
+                                    </div>
+                                }
+
+                                // Check if defaultVariant exists
+                                if (defaultVariant) {
+                                    return (
+                                        <Link key={index} style={{ textDecoration: 'none', margin: 'auto' }} to={`/productDetails/${product.id}`}>
+                                            <ProductCard
+                                                key={index}
+                                                Image={{
+                                                    src: defaultVariant.image_keys.product_url,
+                                                    alt: defaultVariant.description
+                                                }}
+                                                productName={product.name}
+                                                productBrand={product.brands.name}
+                                                productCategory={product.categories.name}
+                                                productOriginalPrice={defaultVariant.mrp}
+                                                productDiscountPrice={defaultVariant.discount || 0}
+                                                ColorChoice={true}
+                                            />
+                                        </Link>
+                                    );
+                                }
+                                else {
+                                    return null; // If no default variant found, return null to skip rendering
+                                }
+                            })}
                         </div>
-                        <div className={classes['Pagination']}>
-                            <span className={classes['next-prev']}>PREV</span>
-                            <span className={classes.pageNo}>1</span>
-                            <span className={classes.pageNo}>2</span>
-                            <span className={classes.pageNo}>3</span>
-                            <span className={classes['next-prev']}>NEXT</span>
-                        </div>
+
                     </React.Fragment>
                 }
+              <Pagination/>
             </div>
         </div>
     )

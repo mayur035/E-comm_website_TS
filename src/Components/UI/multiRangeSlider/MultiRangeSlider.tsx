@@ -51,6 +51,12 @@ const MultiRangeSlider = (props: MultiRangeSliderProps) => {
         props.onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal, props.onChange]);
 
+    useEffect(() => {
+        setMaxVal(props.max);
+        setMinVal(props.min);
+    }, [props.max, props.max])
+
+
     return (
         <div className={styles.container}>
         <input
