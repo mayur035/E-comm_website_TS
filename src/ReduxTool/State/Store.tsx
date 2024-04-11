@@ -4,6 +4,8 @@ import ProductCart from '../Cart/ProductCartSlice';
 import AuthDataSlice from '../Auth/AuthDataSlice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import productDetailsSlice from '../Data/productDetailsSlice';
+
 
 
 const persistConfig = {
@@ -16,7 +18,8 @@ const CombineReducers = combineReducers(
     {
         ProductFilter: ProductFilter,
         ProductCart: ProductCart,
-        AuthUserData: AuthDataSlice
+        AuthUserData: AuthDataSlice,
+        productDetailsSlice:productDetailsSlice
     }
 )
 const PersistReducer = persistReducer(persistConfig,CombineReducers)

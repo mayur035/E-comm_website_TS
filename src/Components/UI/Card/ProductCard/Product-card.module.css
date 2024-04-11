@@ -35,7 +35,12 @@
     letter-spacing: 0.1;
     text-align: center;
 }
-
+.card-content .color{
+    display: flex;
+    align-self: center;
+    gap: 12px;
+    margin: 7px;
+}
 .product-price {
     display: flex;
     justify-content: center;
