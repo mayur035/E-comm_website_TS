@@ -189,21 +189,10 @@ const ProductList: React.FC<any> = () => {
                     :
                     <React.Fragment>
                         <div className={classes.product}>
-                            {FilterData && FilterData.data.product && FilterData.data.product.map((product: any, index: any) => {                  
-                                // Find the variant where default is true
-                                // const defaultVariant = product.productVariants.find((variant: any) => variant.default);
-
-                                // if (product && product === 0) {
-                                //     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%', width: '100%' }}>
-                                //         <h1>No Product Found</h1>
-                                //         <img src={Assets.images.NoProductFound} height='50%' width='50%' alt="" />
-                                //     </div>
-                                // }
-
-                                // Check if defaultVariant exists
+                            {FilterData && FilterData.data.product && FilterData.data.product.map((product: any, index: any) => {  
                                 if (product) {
                                     return (
-                                        <Link key={index} style={{ textDecoration: 'none', margin: 'auto' }} to={`/productDetails?productID=${product.id}&productName=${product.product.name}&productCategory=${product.product.categories.name}`}>
+                                        <Link key={index} style={{ textDecoration: 'none', margin: 'auto' }} to={`/productDetails?productID=${product.product.id}&productName=${product.product.name}&productCategory=${product.product.categories.name}&productColor=${product.product.productVariants[0].color}&productSize=${product.product.productVariants[0].size}`}>
                                             <ProductCard
                                                 key={index}
                                                 Image={{

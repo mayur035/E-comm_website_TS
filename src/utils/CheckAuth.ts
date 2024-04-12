@@ -18,4 +18,6 @@ export const checkAuthentication:LoaderFunction<any> = async () => {
         return redirect('/login');
     }
     return null;
+
+    
 }

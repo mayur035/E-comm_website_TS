@@ -23,6 +23,7 @@ interface ProductVariant {
     in_stock: boolean;
     currency: string;
     default: boolean;
+    size:string;
 }
 
 interface Brand {
@@ -47,26 +48,34 @@ interface Category {
 }
 
 interface DetailState {
-    productDetails: {data:{findProductDetails:ProductDetails[]}} | null;
+    productDetails: {data:{findProductDetails:ProductDetails[],allColors:[],allSizes:[]}} | null;
     status: string;
     error: null | string;
 }
 
 interface produtDetails {
-    productId: number
+    productID: number,
+    productColor:string,
+    productSize:string
 }
-
 const initialState: DetailState = {
     productDetails: null,
     status: 'idle',
     error: null
 }
+// Record<string,string| boolean>
 
-export const fetchProductDetail: any = createAsyncThunk<[], produtDetails>('product/productDetails', async (body) => {
-    const { productId } = body
-    const response = await axios.get(`http://localhost:3001/products/details?productID=${productId}`)
+export const fetchProductDetail: any = createAsyncThunk<[], {[keys:string]:[value:string | boolean]}>('product/productDetails', async (body) => {
+    const { productID ,productColor,productSize} = body
+   let response
+    if(productSize === undefined){
+        response = await axios.get(`http://localhost:3001/products/details?productID=${productID}&productColor=${productColor}`)  
+    }else{
+        response = await axios.get(`http://localhost:3001/products/details?productID=${productID}&productColor=${productColor}&productSize=${productSize}`)  
+    }
     return response.data
 })
+
 const productDetails = createSlice({
     name: 'ProductDetails',
     initialState,
