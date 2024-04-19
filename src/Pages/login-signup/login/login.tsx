@@ -4,7 +4,7 @@ import { Assets } from '../../../Assets/Assets';
 import Button from '../../../Components/UI/Button/PrimaryButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastFunc } from '../../../utils/ToastFun';
-import { setIsAuthenticated } from '../../../ReduxTool/Auth/AuthDataSlice';
+import { setIsAuthenticated } from '../../../ReduxTool/AuthDataSlice';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 

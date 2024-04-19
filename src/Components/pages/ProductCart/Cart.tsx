@@ -5,9 +5,10 @@ import CartItem from './CartItems/CartItem'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../ReduxTool/State/Store'
+import { CartItemtype } from '../../../types/types'
 
 const Cart = () => {
-    const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems);
+    const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems as []);
     return (
         <div className={classes['cart-main']}>
             <ProductPath />
@@ -22,7 +23,7 @@ const Cart = () => {
                     </div>
                     <hr />
                     <div className={classes.cartItems}>
-                        {cartSelector.map((item, index) => (
+                        {cartSelector && cartSelector.map((item:CartItemtype, index:any) => (
                             <React.Fragment key={index}>
                                 <CartItem items={item} />
                                 <hr />

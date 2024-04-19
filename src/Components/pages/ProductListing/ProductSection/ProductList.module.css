@@ -23,7 +23,14 @@
     flex-wrap: wrap;
     gap: 10px;
 }
-
+.filter-price{
+    width: 50%;
+}
+.filter-price .price-slider-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 .product-filter .filter-by span:hover {
     color: #23A6F0;
     cursor: pointer;

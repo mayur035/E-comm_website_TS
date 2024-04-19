@@ -2,33 +2,29 @@ import { FavoriteBorderOutlined, ShoppingCartOutlined, Visibility } from '@mui/i
 import { Assets } from '../../../../Assets/Assets'
 import classes from './ProductDetails.module.css'
 import Button from '../../../UI/Button/PrimaryButton'
-import { IconButton } from '@mui/material'
+import { IconButton, Rating } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
+// import { addToCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
 import { useLocation, useNavigate, useParams } from 'react-router'
-import { RootState } from '../../../../ReduxTool/State/Store'
+import { AppDispatch, RootState } from '../../../../ReduxTool/State/Store'
 import { ToastFunc } from '../../../../utils/ToastFun'
 import { useEffect, useState } from 'react'
-import { fetchProductDetail } from '../../../../ReduxTool/Data/productDetailsSlice'
+import { fetchProductDetail } from '../../../../ReduxTool/productDetailsSlice'
 import { Colordot, SizeBox } from '../../../UI/colorSize/color_Size'
+import { getItems, postItems } from '../../../../ReduxTool/ProductCartSlice'
 // import { allProducts } from '../../../../ReduxTool/Data/ProductDataSlice'
 
 const ProductDetails = () => {
     const location = useLocation();
 
-
     const product_Detail = useSelector((state: RootState) => state.productDetailsSlice.productDetails)
-    const product = product_Detail?.data.findProductDetails[0];
-    const colors = product_Detail?.data.allColors;
-    const sizes = product_Detail?.data.allSizes;
+    const product = product_Detail?.ProductDetails;
+    const colors = product_Detail?.allColors;
+    const sizes = product_Detail?.allSizes;        
 
+    // const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
 
-
-    const cartSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
-
-    // const navigate = useNavigate();
-    // const { productID, productColor,productSize } = useParams();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const checkAuthUser = useSelector((state: RootState) => state.AuthUserData.token);
 
     useEffect(() => {
@@ -39,31 +35,12 @@ const ProductDetails = () => {
         dispatch(fetchProductDetail({ productID, productColor, productSize }))
     }, [location]);
 
-    // const isAlreadyInCart = cartSelector.find((item) => item.id === productID)
-
-
-
-    // const ClickToAdd = () => {
-    //     if (checkAuthUser) {
-    //         if (isAlreadyInCart) {
-    //             ToastFunc('Product is already in cart', "warn")
-    //             return;
-    //         }
-    //         dispatch(addToCart(productID))
-    //         ToastFunc("Product added to cart", 'success')
-    //     } else {
-    //         ToastFunc("Please Register/Login", "error")
-    //         navigate('/login')
-    //     }
-    // }    
-
-    const discountPrice = product && ((product?.productVariants[0]?.mrp) - (product?.productVariants[0]?.mrp) * (product?.productVariants[0]?.discount / 100))
+    const discountPrice = product && ((product?.productVariants?.mrp) - (product?.productVariants?.mrp) * (product?.productVariants?.discount / 100))
 
     const colorClickManage = (productID: number | undefined, productColor: string | undefined, productSize: string | undefined) => {
 
         if (productID !== undefined && productColor !== undefined) {
-
-            dispatch(fetchProductDetail({ productID, productColor, productSize }))
+            dispatch(fetchProductDetail({ productID, productColor, productSize }))   
         } else {
             console.error('Product ID is undefined');
         }
@@ -72,46 +49,52 @@ const ProductDetails = () => {
     return (
         <div className={classes['product-details-main']}>
             <div className={classes['product-details-image']}>
-                <img width='100%' height='80%' src={product?.productVariants[0]?.image_keys.product_url} alt='product image' />
+                <img width='100%' height='80%' src={product?.productVariants?.image_keys.product_url} alt='product image' />
             </div>
 
             <div className={classes['product-details-content-main']}>
                 <div className={classes['product-details-content-inner']}>
                     <h4>{product?.name}</h4>
-                    <div className={classes.rating}><img src={Assets.images.stars} alt="stars" /><h6>10 reviews</h6></div>
+                    <div className={classes.rating}><Rating name="half-rating" defaultValue={2.5} precision={0.5} /><h6>10 reviews</h6></div>
                     <div className={classes['availability']}>
                         <h5 className={classes.checkAva}>Availability  : </h5>
                         <h5
                             className={classes.inStock}
                             style={{
-                                color: `${product?.productVariants[0]?.in_stock ? 'green' : 'red'}`,
+                                color: `${product?.productVariants?.in_stock ? 'green' : 'red'}`,
                             }}
                         >
-                            {product?.productVariants[0]?.in_stock ? 'In stock' : 'Out of stock'}
+                            {product?.productVariants?.in_stock ? 'In stock' : 'Out of stock'}
                         </h5>
 
                     </div>
-                    <h3 className={classes.price}><span style={{ color: '#737373' }}><del>${product?.productVariants[0]?.mrp}</del></span> ${discountPrice}<span style={{ fontSize: '15px', color: "#737373" }}>({product?.productVariants[0]?.discount}% off)</span></h3>
+                    <h3 className={classes.price}><span style={{ color: '#737373' }}><del>${product?.productVariants?.mrp}</del></span> ${discountPrice}<span style={{ fontSize: '15px', color: "#737373" }}>({product?.productVariants?.discount}% off)</span></h3>
 
-                    <p>{product?.productVariants[0]?.description}</p>
+                    <p>{product?.productVariants?.description}</p>
                     <hr />
                     <div className={classes.color}>
                         {colors?.map((color, index) => {
                             return <div key={index} className={classes.colorDot} style={{ cursor: 'pointer' }} onClick={(e) => {
                                 colorClickManage(product?.id, color, undefined)
-                            }}><Colordot color={color} selectedColor={product?.productVariants[0]?.color} /></div>
+                            }}><Colordot color={color} selectedColor={product?.productVariants?.color} /></div>
                         })}
                     </div>
                     <div className={classes.options}>
                         {sizes?.map((size, index) => (
-                            <div key={index} onClick={() => colorClickManage(product?.id, product?.productVariants[0].color, size)}>
-                                <SizeBox size={size} selectedSize={product?.productVariants[0]?.size} />
+                            <div key={index} onClick={() => colorClickManage(product?.id, product?.productVariants.color, size)}>
+                                <SizeBox size={size} selectedSize={product?.productVariants?.size} />
                             </div>
                         ))}
                     </div>
                     <div className={classes['like-cart-visible']}>
-                        <IconButton style={{color:'black'}}><FavoriteBorderOutlined className={classes.icon} /></IconButton>
-                    {product?.productVariants[0].in_stock && <IconButton style={{color:'black'}}><ShoppingCartOutlined className={classes.icon} /></IconButton>}
+                        <IconButton style={{ color: 'black' }}><FavoriteBorderOutlined className={classes.icon} /></IconButton>
+                        {product && product?.productVariants.in_stock && <IconButton style={{ color: 'black' }}
+                            onClick={async () => {
+                                await dispatch(postItems(product?.productVariants.id))
+                                dispatch(getItems())
+                            }
+                            }
+                        ><ShoppingCartOutlined className={classes.icon} /></IconButton>}
                         {/* <IconButton><Visibility className={classes.icon} /></IconButton> */}
                     </div>
 

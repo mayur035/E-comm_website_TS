@@ -1,10 +1,16 @@
 import { combineReducers, configureStore} from '@reduxjs/toolkit';
-import ProductFilter from '../Filters/FilterSlice'
-import ProductCart from '../Cart/ProductCartSlice';
-import AuthDataSlice from '../Auth/AuthDataSlice';
+import ProductFilter from '../ProductFilterSlice'
+import ProductCart from '../ProductCartSlice';
+import AuthDataSlice from '../AuthDataSlice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import productDetailsSlice from '../Data/productDetailsSlice';
+import productDetailsSlice from '../productDetailsSlice';
+import profileSlice from '../profileSlice';
+import AddressSlice from '../addressSlice';
+import OrderHistory from '../orderHistorySlice';
+import UISlice from '../uiSlice';
+import BestSellerSlice from '../BestSellerSlice';
+
 
 
 
@@ -19,7 +25,12 @@ const CombineReducers = combineReducers(
         ProductFilter: ProductFilter,
         ProductCart: ProductCart,
         AuthUserData: AuthDataSlice,
-        productDetailsSlice:productDetailsSlice
+        productDetailsSlice:productDetailsSlice,
+        ProfileSlice:profileSlice,
+        AddressSlice:AddressSlice,
+        OrderHistory:OrderHistory,
+        UISlice:UISlice,
+        BestSellerSlice:BestSellerSlice
     }
 )
 const PersistReducer = persistReducer(persistConfig,CombineReducers)

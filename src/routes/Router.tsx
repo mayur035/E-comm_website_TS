@@ -13,6 +13,10 @@ import ScrollToTop from './scrollToTop'
 import { checkAuthentication } from '../utils/CheckAuth'
 import Login from '../Pages/login-signup/login/login'
 import Signup from '../Pages/login-signup/signup/signup'
+import Address from '../Components/pages/Address/Address'
+import Profile from '../Components/pages/Profile/Profile'
+import OrderDetails from '../Pages/Orders/order-details/order-details'
+import OrderListing from '../Pages/Orders/order-listing/order-listing'
 const Router = () => {
     return (
         <React.Fragment>
@@ -56,6 +60,23 @@ export const Routers = createBrowserRouter([
             },{
                 path:'/signup',
                 element:<Signup/>
+            }
+            ,{
+                path:'/profile',
+                element:<Profile/>,
+                loader:checkAuthentication
+            },{
+                path:'/address',
+                element:<Address/>,
+                loader:checkAuthentication
+            },{
+                path:'/orderDetails',
+                element:<OrderDetails/>,
+                loader:checkAuthentication
+            },{
+                path:'/orderListing',
+                element:<OrderListing/>,
+                loader:checkAuthentication
             }
         ]
     }

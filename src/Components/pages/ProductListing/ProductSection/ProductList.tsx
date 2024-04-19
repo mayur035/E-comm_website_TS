@@ -2,50 +2,58 @@ import React, { useEffect, useState } from 'react'
 import classes from './ProductList.module.css'
 import ProductCard from '../../../UI/Card/ProductCard/Product-card'
 import { FilterList, Minimize } from '@mui/icons-material'
-import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider'
 import { Link } from 'react-router-dom'
 import RespFilter from '../ResponsiveFilter/RespFilter'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetch_filter_product, fetch_brands, fetch_categories, fetch_price, fetch_color } from '../../../../ReduxTool/Filters/FilterSlice'
-import { Assets } from '../../../../Assets/Assets'
+import { fetch_filter_product, fetch_brands, fetch_categories, fetch_price, fetch_color } from '../../../../ReduxTool/ProductFilterSlice'
 import Pagination from '../../../UI/Pagination/Pagination'
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import { debounce } from 'lodash'
+import { Assets } from '../../../../Assets/Assets'
+import { AppDispatch, RootState } from '../../../../ReduxTool/State/Store'
+import { brandsType, categoriesType, productType, productVariantType } from '../../../../types/types'
 
 
-const ProductList: React.FC<any> = () => {
-    const dispatch = useDispatch();
+const ProductList: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const updateWindowWidth = () => { setWindowWidth(window.innerWidth); };
 
-    const brands = useSelector((state: any) => state.ProductFilter.brands);
-    const categories = useSelector((state: any) => state.ProductFilter.categories);
-    const price = useSelector((state: any) => state.ProductFilter.price.data);
-    const FilterData = useSelector((state: any) => state.ProductFilter.filterProducts)
-    const filterBrands = useSelector((state: any) => state.ProductFilter.filterBrands)
-    const page = useSelector((state: any) => state.ProductFilter.page)
-    const [currentPage, setCurrentPage] = useState(page);
+    const filterData = useSelector((state: RootState) => state.ProductFilter.filterProducts)
+    const categories = useSelector((state: RootState) => state.ProductFilter.categories);
+    const brands = useSelector((state: RootState) => state.ProductFilter.brands);
+    const price = useSelector((state: RootState) => state.ProductFilter.price);
+    const filterBrands = useSelector((state: RootState) => state.ProductFilter.filterBrands)
+    const page = useSelector((state: RootState) => state.ProductFilter.page)
+    // const [currentPage, setCurrentPage] = useState(page);
 
+    
     const [isShow, setIsShow] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
-    const [maxValues, setMaxValues] = useState(0);
-    const [minValues, setMinValues] = useState(0);
+    const [values, setValues] = useState([0, 0]);
+
+    useEffect(() => {
+        setValues([price.minMRP, price.maxMRP])
+    }, [price.minMRP, price.maxMRP])
 
     const [visiblePages, setVisiblePages] = useState([1, 2, 3]);
     useEffect(() => {
-        if (currentPage > visiblePages[visiblePages.length - 1]) {
+        if (page > visiblePages[visiblePages.length - 1]) {
             // If current page exceeds the visible range, update visiblePages
-            setVisiblePages([currentPage - 1, currentPage, currentPage + 1]);
-        } else if (currentPage < visiblePages[0]) {
+            setVisiblePages([page - 1, page, page + 1]);
+        } else if (page < visiblePages[0]) {
             // If current page is before the visible range, update visiblePages
-            setVisiblePages([currentPage - 1, currentPage, currentPage + 1]);
+            setVisiblePages([page - 1, page, page + 1]);
         }
-    }, [currentPage]);
+    }, [page]);
 
     useEffect(() => {
         dispatch(fetch_categories());
         dispatch(fetch_brands());
         dispatch(fetch_price());
-        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: currentPage } }))
-        dispatch(fetch_filter_product({ filterType: 'select', filterValue: {selectValue:'low-high'} }))
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: page } }))
+        dispatch(fetch_filter_product({ filterType: 'select', filterValue: { selectValue: 'low-high' } }))
     }, []);
 
 
@@ -74,27 +82,36 @@ const ProductList: React.FC<any> = () => {
             }
         }
 
-        //     dispatch(fetch_filter_product({ filterType: 'brands', filterValue: {checked,nameSlug} }));
         // Dispatch action to update the filter
-        const nameSlug = name === "All" ? "All" : brands.data.find((cat: any) => cat.name.toLowerCase() === name)?.slug;
+        const nameSlug = name === "All" ? "All" : brands.find((cat:brandsType) => cat.name!.toLowerCase() === name)?.slug;
         console.log(nameSlug);
         dispatch(fetch_filter_product({ filterType: 'brands', filterValue: { checked, nameSlug } }));
         dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
     }
+
+    const debouncedFetchProducts = debounce((value) => {
+        dispatch(fetch_filter_product({ filterType: 'price', filterValue: { maxMRP: value[1], minMRP: value[0] } }))
+        dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }))
+    }, 2000);
+
+    useEffect(() => {
+        debouncedFetchProducts(values);
+        return () => debouncedFetchProducts.cancel();
+    }, [values]);
 
     return (
         <div className={classes['product-list-main']}>
             <div className={classes['product-filter']}>
                 <div className={classes['filter-by']}>
                     <h3>Filter by</h3>
-                    {["All", ...categories.data.map((category: any) => category.name)].map((categoryName, index) => (
+                    {["All", ...categories.map((category: categoriesType) => category.name)].map((categoryName, index) => (
                         <span
                             key={index}
                             data-name='productCategory'
-                            data-value={categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug}
-                            onClick={() => {
-                                const slug = categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug;
-                                dispatch(fetch_filter_product({ filterType: 'category', filterValue: slug }));
+                            data-value={categoryName === "All" ? null : categories.find((cat: categoriesType) => cat.name === categoryName)?.slug}
+                            onClick={async () => {
+                                const slug = categoryName === "All" ? null : categories.find((cat: categoriesType) => cat.name === categoryName)?.slug;
+                                await dispatch(fetch_filter_product({ filterType: 'category', filterValue: slug }));
                                 dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
                             }}
                         >
@@ -104,38 +121,35 @@ const ProductList: React.FC<any> = () => {
                 </div>
                 <div className={classes['filter-price']}>
                     <h4>Price</h4>
-                    <MultiRangeSlider
+                    <RangeSlider
                         min={price.minMRP}
                         max={price.maxMRP}
-                        onChange={({ max, min }) => {
-                            setMaxValues(max);
-                            setMinValues(min);
-                        }}
-                        onDispatchFilter={() => {
-                            dispatch(fetch_filter_product({ filterType: 'price', filterValue: { maxMRP: maxValues, minMRP: minValues } }))
-                            dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
-                        }}
-                    />
+                        value={values}
+                        onInput={(val: number[]) => { setValues(val) }} />
+                    <div className={classes['price-slider-container']}>
+                        <span>{values[0]}</span>
+                        <span>{values[1]}</span>
+                    </div>
                 </div>
                 <div className={classes['filter-brand']}>
                     <h4>Brands</h4>
                     <div>
                         <div className={classes.checkList}>
-                            {["All", ...new Set(brands.data.map((product: any) => product.name))].map((brand: any, index) => {
+                            {["All", ...new Set(brands.map((product: brandsType) => product.name))].map((brand: string|undefined, index) => {
                                 return (
                                     <div key={index}>
                                         <input
                                             type="checkbox"
                                             data-name='productBrand'
-                                            data-value={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                            data-value={brand === "All" ? 'All' : brands.find((cat:brandsType) => cat.name === brand)?.slug}
                                             defaultChecked={
-                                                filterBrands.length === 0 ? false : filterBrands.includes(brand.toLowerCase())
+                                                filterBrands.length === 0 ? false : filterBrands.includes(brand!.toLowerCase())
                                             }
-                                            name={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                            name={brand === "All" ? 'All' : brands.find((cat: brandsType) => cat.name === brand)?.slug}
                                             onChange={handleCheckChange}
                                         />
                                         <label>
-                                            {brand.toUpperCase()}
+                                            {brand!.toUpperCase()}
                                         </label>
                                     </div>
                                 )
@@ -181,7 +195,7 @@ const ProductList: React.FC<any> = () => {
                         </div>
                     </div>}
 
-                {FilterData.data.product?.length === 0 ?
+                {filterData && filterData.length === 0 ?
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto', height: '100%', width: '100%' }}>
                         <h1>No Product Found</h1>
                         <img src={Assets.images.NoProductFound} height='50%' width='50%' alt="" />
@@ -189,23 +203,23 @@ const ProductList: React.FC<any> = () => {
                     :
                     <React.Fragment>
                         <div className={classes.product}>
-                            {FilterData && FilterData.data.product && FilterData.data.product.map((product: any, index: any) => {  
+                            {filterData && filterData.map((product: productType, index: number) => {  
                                 if (product) {
                                     return (
-                                        <Link key={index} style={{ textDecoration: 'none', margin: 'auto' }} to={`/productDetails?productID=${product.product.id}&productName=${product.product.name}&productCategory=${product.product.categories.name}&productColor=${product.product.productVariants[0].color}&productSize=${product.product.productVariants[0].size}`}>
+                                        <Link key={index} style={{ textDecoration: 'none', margin: 'auto' }} to={`/productDetails?productID=${product?.product?.id}&productName=${product?.product?.name}&productCategory=${product?.product?.categories.name}&productColor=${product?.product?.productVariants?.color}&productSize=${product?.product?.productVariants?.size}`}>
                                             <ProductCard
                                                 key={index}
                                                 Image={{
-                                                    src: product.product.productVariants[0].image_keys.product_url,
-                                                    alt: product.product.productVariants[0].image_keys.description
+                                                    src: product.product?.productVariants.image_keys.product_url!,
+                                                    alt:'this is product'
                                                 }}
-                                                productName={product.product.name}
-                                                productBrand={product.product.brands.name}
-                                                productCategory={product.product.categories.name}
-                                                productOriginalPrice={product.product.productVariants[0].mrp}
-                                                productDiscountPrice={product.product.productVariants[0].discount || 0}
-                                                colors={product.color}
-                                            />
+                                                productName={product?.product?.name!}
+                                                productBrand={product?.product?.brands.name!}
+                                                productCategory={product?.product?.categories.name!}
+                                                productOriginalPrice={product?.product?.productVariants.mrp!}
+                                                productDiscountPrice={product?.product?.productVariants.discount || 0}
+                                                colors={product?.colors!}
+                                            /> 
                                         </Link>
                                     );
                                 }

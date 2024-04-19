@@ -6,6 +6,8 @@
     padding: 80px 0px 80px 0px;
     gap: 80px;
     margin: auto;
+    align-items: center;
+    justify-content: center;
 }
 .product-container img{
     display: flex;

@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react'
 import ReactDom from 'react-dom';
 import classes from './Cart-total.module.css'
 import Button from '../../../UI/Button/PrimaryButton'
-import { RootState } from '../../../../ReduxTool/State/Store'
+import { AppDispatch, RootState } from '../../../../ReduxTool/State/Store'
 import { useDispatch, useSelector } from 'react-redux'
-import { emptyCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
+// import { emptyCart } from '../../../../ReduxTool/Cart/ProductCartSlice'
 import { Assets } from '../../../../Assets/Assets';
 import { useLottie } from 'lottie-react';
 import { useNavigate } from 'react-router';
+import { getUserDetails } from '../../../../ReduxTool/profileSlice';
+import { ToastFunc } from '../../../../utils/ToastFun';
+import { setShowUserEdit } from '../../../../ReduxTool/uiSlice';
+import { CartItemtype } from '../../../../types/types';
 
 
 const BackDrop: React.FC = () => {
@@ -31,43 +35,46 @@ const Checkout: React.FC = () => {
     )
 }
 const CartTotal = () => {
-    const CartTotalSelector = useSelector((state: RootState) => state.ProductCart.cartItems)
+    const CartTotalSelector = useSelector((state: RootState) => state.ProductCart.cartItems as []) 
+       
+    const subTotal = CartTotalSelector.reduce((total:number, item:CartItemtype)=>{
+        const discount = Number( (item.productVariants.mrp - (item.productVariants.discount / 100) * item.productVariants.mrp).toFixed(0))
+        return total + (discount*item.quantity)
+    },0)
 
-    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(getUserDetails())
+    },[])
+    
+    const userDetails = useSelector((state: RootState) => state.ProfileSlice.userProfile as Record<string,string|number>)
+
+    let nullFields = [];
+            for (const key in userDetails) {
+                if (userDetails[key] === null) {
+                    nullFields.push(key);
+                }
+            }
+    
+    const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
-    const [popup, setPopup] = useState<boolean>(false)
-    // Calculate subtotal
-    const subtotal = CartTotalSelector.reduce((total, item) => total + item.productDiscountPrice * item.productQuantity, 0);
 
-    const handleCheckOut = () => {
-        setPopup(true)
-        setTimeout(() => {
-            dispatch(emptyCart())
-            navigate('/')
-            setPopup(false)
-        }, 3000)
+    const handleCheckOut = async() => {
+        await dispatch(getUserDetails())
+        if(nullFields.length > 0 ){
+            dispatch(setShowUserEdit())
+            navigate('/profile')
+            ToastFunc('Complete the profile',"error")
+        }else{
+            navigate('/address')
+        }
+        
     }
-    useEffect(() => {
-        // Add event listener to handle body overflow when component mounts
-        document.body.style.overflow = 'hidden';
-        // Remove event listener when component unmounts
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, []);
-
     return (
         <React.Fragment>
-            {popup &&
-                <React.Fragment>
-                    {ReactDom.createPortal(<Checkout />, document.getElementById('checkout-root')!)}
-                    {ReactDom.createPortal(<BackDrop />, document.getElementById('backdrop-root')!)}
-                </React.Fragment>
-            }
             <p className={classes['cart-total-heading']}>Cart total</p>
             <div className={classes['cart-subtotal']}>
                 <p>Subtotal : </p>
-                <p>${subtotal.toFixed(2)}</p>
+                <p>${subTotal.toFixed(2)}</p>
             </div>
             <hr />
             <div className={classes['cart-shipping']}>
@@ -77,7 +84,7 @@ const CartTotal = () => {
             <hr />
             <div className={classes['cart-total']}>
                 <p>Total : </p>
-                <p>${subtotal.toFixed(2)}</p>
+                <p>${subTotal.toFixed(2)}</p>
             </div>
             <div className={classes['checkout-btn']}>
                 <Button

@@ -3,7 +3,7 @@ import Clients from '../Components/UI/Clients/Clients'
 import ProductPath from '../Components/UI/ProductPath/Product-Path'
 import ProductDetails from '../Components/pages/ProductDetails/ProductDetail/ProductDetails'
 import ProductDesc from '../Components/pages/ProductDetails/ProductDescription/ProductDesc'
-import BestSellerProduct from '../Components/pages/ProductDetails/BestSellerProduct/BestSellerProduct'
+import BestProduct from '../Components/pages/Home/BestSellerProduct/Best-Product'
 
 const ProductDetailsMain = () => {
   return (
@@ -11,7 +11,7 @@ const ProductDetailsMain = () => {
         <ProductPath/>
         <ProductDetails/>
         <ProductDesc />
-        <BestSellerProduct/>
+        <BestProduct />
         <Clients/>
     </React.Fragment>
   )

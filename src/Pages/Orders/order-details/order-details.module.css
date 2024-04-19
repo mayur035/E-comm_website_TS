@@ -1,77 +1,74 @@
-.cart-main {
+.order-main {
     max-width: 1440px;
     margin: auto;
 }
 
-.cart-container {
+.order-container {
     padding: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
 }
 
-.cart-container .cart-item-list {
+.order-container .order-item-list {
     gap: 20px;
-    flex: 3;
 }
 
-.cart-container .cart-item-list .cart-item-header {
+.order-container .order-item-list .order-item-header {
     display: flex;
     padding: 20px 0px;
     justify-content: space-around;
 }
 
-.cart-item-header {
+.order-item-header {
     display: flex;
 }
 
-.cart-item-header .cart-product {
+.order-item-header .order-product {
     flex: 2;
 }
 
-.cart-item-header .cart-quantity-total {
+.order-item-header .order-quantity-total {
     display: flex;
     flex: 1;
 }
 
-.cart-quantity-total .cart-subtotal-heading,
-.cart-quantity-total .cart-quanity-heading {
+.order-quantity-total .order-subtotal-heading,
+.order-quantity-total .order-quanity-heading {
     flex: 1;
 }
 
-.cart-container .cart-total-content {
+.order-container .order-total-content {
     position: sticky;
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
     flex-direction: column;
     flex: 1;
-    justify-content: space-evenly;
     font-family: "Poppins", sans-serif;
-    border: 1px solid black;
-    width: 430px;
-    height: 325px;
+    width: 100%;
+    height: 100%;
     border-radius: 4px;
     padding: 20px;
 }
 
 @media (max-width:1024px) {
-    .cart-container {
-        flex-direction: column-reverse;
+    .order-container {
         align-items: center;
     }
 
-    .cart-container .cart-item-list {
+    .order-container .order-item-list {
         width: 90%;
     }
 }
 @media (max-width:430px) {
-    .cart-container .cart-total-content{
+    .order-container .order-total-content{
         width: 90%;
     }
 }
 
 @media (max-width:650px) {
-    .cart-container .cart-item-list .cart-item-header  {
+    .order-container .order-item-list .order-item-header  {
         display: none;
     }
 }

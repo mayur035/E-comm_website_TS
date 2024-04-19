@@ -5,7 +5,9 @@ import MultiRangeSlider from '../../../UI/multiRangeSlider/MultiRangeSlider';
 import Drawer from './Drawer/Drawer';
 import Accordion from './Accordion/Accordion';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetch_filter_product, fetch_brands, fetch_categories, fetch_price } from '../../../../ReduxTool/Filters/FilterSlice'
+import { fetch_filter_product, fetch_brands, fetch_categories, fetch_price } from '../../../../ReduxTool/ProductFilterSlice'
+import { AppDispatch, RootState } from '../../../../ReduxTool/State/Store';
+import { brandsType, categoriesType } from '../../../../types/types';
 
 
 const BackDrop: React.FC = () => {
@@ -18,17 +20,18 @@ const ModalOverlays: React.FC<{ setIsShow: React.Dispatch<React.SetStateAction<b
     const [maxValues, setMaxValues] = useState(0);
     const [minValues, setMinValues] = useState(0);
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
         dispatch(fetch_categories());
         dispatch(fetch_brands());
         dispatch(fetch_price());
     }, []);
 
-    const brands = useSelector((state: any) => state.ProductFilter.brands);;
-    const categories = useSelector((state: any) => state.ProductFilter.categories);
-    const price = useSelector((state: any) => state.ProductFilter.price.data);
-    const filterBrands = useSelector((state: any) => state.ProductFilter.filterBrands)
+    const categories = useSelector((state: RootState) => state.ProductFilter.categories);
+    const brands = useSelector((state: RootState) => state.ProductFilter.brands);
+    const price = useSelector((state: RootState) => state.ProductFilter.price);
+    const filterBrands = useSelector((state: RootState) => state.ProductFilter.filterBrands)
+
 
     const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
@@ -47,7 +50,7 @@ const ModalOverlays: React.FC<{ setIsShow: React.Dispatch<React.SetStateAction<b
             }
         }
         // Dispatch action to update the filter
-        const nameSlug = name === "All" ? "All" : brands.data.find((cat: any) => cat.name.toLowerCase() === name)?.slug;
+        const nameSlug = name === "All" ? "All" : brands.find((cat: brandsType) => cat.name!.toLowerCase() === name)?.slug;
         console.log(nameSlug);
         dispatch(fetch_filter_product({ filterType: 'brands', filterValue: { checked, nameSlug } }));
         dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
@@ -58,13 +61,13 @@ const ModalOverlays: React.FC<{ setIsShow: React.Dispatch<React.SetStateAction<b
             <div className={classes['filter-menu']}>
 
                 <Accordion accordion_head="Categories">
-                    {["All", ...categories.data.map((category: any) => category.name)].map((categoryName, index) => (
+                    {["All", ...categories.map((category: categoriesType) => category.name)].map((categoryName, index) => (
                         <span
                             key={index}
                             data-name='productCategory'
-                            data-value={categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug}
+                            data-value={categoryName === "All" ? null : categories.find((cat: categoriesType) => cat.name === categoryName)?.slug}
                             onClick={() => {
-                                const slug = categoryName === "All" ? null : categories.data.find((cat: any) => cat.name === categoryName)?.slug;
+                                const slug = categoryName === "All" ? null : categories.find((cat: categoriesType) => cat.name === categoryName)?.slug;
                                 dispatch(fetch_filter_product({ filterType: 'category', filterValue: slug }));
                                 setIsShow(false)
                             }}
@@ -92,21 +95,21 @@ const ModalOverlays: React.FC<{ setIsShow: React.Dispatch<React.SetStateAction<b
 
                 <Accordion accordion_head="Brands">
                     <div className={classes.checkList}>
-                        {["All", ...new Set(brands.data.map((product: any) => product.name))].map((brand: any, index) => {
+                        {["All", ...new Set(brands.map((product: brandsType) => product.name))].map((brand: string | undefined, index) => {
                             return (
                                 <div key={index}>
                                     <input
                                         type="checkbox"
                                         data-name='productBrand'
-                                        data-value={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                        data-value={brand === "All" ? 'All' : brands.find((cat: brandsType) => cat.name === brand)?.slug}
                                         defaultChecked={
-                                            filterBrands.length === 0 ? false : filterBrands.includes(brand.toLowerCase())
+                                            filterBrands.length === 0 ? false : filterBrands.includes(brand!.toLowerCase())
                                         }
-                                        name={brand === "All" ? 'All' : brands.data.find((cat: any) => cat.name === brand)?.slug}
+                                        name={brand === "All" ? 'All' : brands.find((cat: brandsType) => cat.name === brand)?.slug}
                                         onChange={handleCheckChange}
                                     />
                                     <label>
-                                        {brand.toUpperCase()}
+                                        {brand!.toUpperCase()}
                                     </label>
                                 </div>
                             )

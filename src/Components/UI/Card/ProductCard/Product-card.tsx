@@ -11,7 +11,7 @@ type cardProps = {
     productOriginalPrice: number;
     productBrand?: string;
     productDiscountPrice: number;
-    colors: string[] | null
+    colors?: string[] | null
 };
 
 const ProductCard = (props: cardProps) => {

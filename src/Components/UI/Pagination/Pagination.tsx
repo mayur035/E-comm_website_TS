@@ -1,15 +1,16 @@
 import { Fragment } from "react";
 import styles from "./Pagination.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetch_filter_product } from "../../../ReduxTool/Filters/FilterSlice";
+import { fetch_filter_product } from "../../../ReduxTool/ProductFilterSlice";
+import { RootState } from "../../../ReduxTool/State/Store";
 const Pagination = () => {
   const buttons = [];
 
-  const FilterData = useSelector((state: any) => state.ProductFilter.filterProducts)
-  const page = useSelector((state: any) => state.ProductFilter.page)
-
+  // const filterData = useSelector((state: RootState) => state.ProductFilter.filterProducts)
+  const page = useSelector((state: RootState) => state.ProductFilter.page)
+  const totalPages = useSelector((state: RootState) => state.ProductFilter.totalPages)  
   const dispatch = useDispatch();
-  const totalPages = FilterData.data.pages;
+
   const handlePageClick = (pageNumber: number) => {
     dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: pageNumber } }));
   };
