@@ -14,10 +14,10 @@ export interface brandsType extends generalType{
 
 
 export interface userProfileType extends generalType {
-    first_name: string;
-    last_name: string;
+    firstname: string;
+    lastname: string;
     email?: string,
-    phone_no: number
+    phone_no?: number
 }
 
 
@@ -57,12 +57,16 @@ export interface productType extends generalType{
     brands:brandsType;
     categories:categoriesType;
     productVariants:productVariantType;
-    product?:productType;
     colors?:string[];
 }
-
 export interface CartItemtype extends generalType{ 
     quantity: number,
     productVariants:productVariantType,
     users:userProfileType
+}
+
+export interface reviewType extends generalType{
+    stars:number;
+    text:string;
+    users:userProfileType;
 }

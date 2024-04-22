@@ -2,25 +2,30 @@ import { FavoriteBorderOutlined, PersonOutlineOutlined, ShoppingCartOutlined, Me
 import classes from './Light-Nav.module.css'
 import { useEffect, useState } from 'react'
 import Logo from '../../UI/logo/Logo'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Badge, IconButton } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../ReduxTool/State/Store'
+import { AppDispatch, RootState } from '../../../ReduxTool/State/Store'
 import { logOut } from '../../../ReduxTool/AuthDataSlice'
-import { getItems } from '../../../ReduxTool/ProductCartSlice'
-import { setHideUserEdit, setShowUserEdit } from '../../../ReduxTool/uiSlice'
+import { clearCart, clearCartState, getItems } from '../../../ReduxTool/ProductCartSlice'
+import { setHideProfileBox, setHideUserEdit, setShowProfileBox, setShowUserEdit } from '../../../ReduxTool/uiSlice'
+import { getUserDetails } from '../../../ReduxTool/profileSlice'
 // import { emptyCart } from '../../../ReduxTool/Cart/ProductCartSlice'
 
 
 const LightNavbar = () => {
     const [Mobile, setMobile] = useState<boolean>(false)
-    const [profileBox, setprofileBox] = useState<boolean>(false)
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
     const dataSelector = useSelector((state: RootState) => state.AuthUserData.token)
-    const showEdit = useSelector((state: RootState) => state.UISlice.showUserEdit)
+    // const showEdit = useSelector((state: RootState) => state.UISlice.showUserEdit)
+    const profileBox = useSelector((state: RootState) => state.UISlice.showProfileBox)
+
+    const user = useSelector((state: RootState) => state.ProfileSlice.userProfile as Record<string, string | number>)
 
     const CartItemSelector = useSelector((state: RootState) => state.ProductCart.cartItems as [])
+
     const numberOfCartItems = CartItemSelector && CartItemSelector.length;
 
     const toggleMobileMenu = () => {
@@ -31,15 +36,18 @@ const LightNavbar = () => {
         setMobile(false);
     }
 
-    const openProfile = () => {
-        // setMobile(false);
-        setprofileBox(!profileBox)
+    const openProfile = async () => {
+        await dispatch(getUserDetails())
+        if (profileBox === true){
+            dispatch(setHideProfileBox())
+        }else{
+            dispatch(setShowProfileBox())
+        }
     }
-
     return (
         <section id={classes['light-header']}>
             <div className={classes.container}>
-                <Logo />
+                <Link to='/' style={{ textDecoration: 'none' }}><Logo /></Link>
                 <div className={`${classes.menu} ${Mobile ? classes['menu-res'] : ""}`}>
                     <ul>
                         <li><Link to='/' onClick={closeMobileMenu}>Home</Link></li>
@@ -51,9 +59,11 @@ const LightNavbar = () => {
                     </ul>
                     <ul>
                         {dataSelector ?
-                            <li onClick={() => {
-                                dispatch(logOut())
-                                // dispatch(emptyCart())
+                            <li onClick={async () => {
+                                await dispatch(logOut())
+                                dispatch(clearCartState())
+                                dispatch(setHideProfileBox())
+                                navigate('/')
                             }}><Logout />LogOut</li> :
                             <li><Link to='/login' onClick={closeMobileMenu}><PersonOutlineOutlined />Login/Signup</Link></li>
                         }
@@ -61,11 +71,11 @@ const LightNavbar = () => {
                             <div className={classes['popup-box']}>
                                 <div onClick={openProfile}><AccountCircleOutlined /></div>
                                 {profileBox && <div className={classes['user-profile-box']}>
-                                    <div className={classes['options']}>Hello,Patel!</div>
-                                    <Link to='/profile' onClick={() => { setprofileBox(!profileBox); dispatch(setHideUserEdit()) }} className={classes['options']}>User Profile</Link>
-                                    <Link to='/profile' onClick={() => { setprofileBox(!profileBox); dispatch(setShowUserEdit()) }} className={classes['options']}>Edit Profile</Link>
+                                    <div className={classes['options']}>
+                                        {user.first_name !== null ? `Hello,${user.first_name}` : `Hello`}
+                                    </div>
+                                    <Link to='/profile' onClick={() => { dispatch(setHideUserEdit()) }} className={classes['options']}>User Profile</Link>
                                     <Link to='/orderListing' onClick={openProfile} className={classes['options']}>OrderHistory</Link>
-                                    <Link to='' onClick={openProfile} className={classes['options']}>Help</Link>
                                 </div>}
                             </div>
                         </li>}
@@ -77,7 +87,7 @@ const LightNavbar = () => {
                     {Mobile ? <IconButton onClick={toggleMobileMenu}><Close /></IconButton> : <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}><div className={classes['popup-box']}>
                         <div onClick={openProfile}><AccountCircleOutlined /></div>
                         {profileBox && dataSelector && <div className={classes['user-profile-box']}>
-                            <div className={classes['options']}>Hello,Patel!</div>
+                            <div className={classes['options']}>{user.first_name !== undefined ? `Hello,${user.first_name}` : `Hello`}</div>
                             <Link to='/profile' onClick={() => dispatch(setHideUserEdit())} className={classes['options']}>User Profile</Link>
                             <Link to='/profile' onClick={() => { dispatch(setHideUserEdit()) }} className={classes['options']}>Edit Profile</Link>
                             <Link to='/orderListing' onClick={openProfile} className={classes['options']}>OrderHistory</Link>

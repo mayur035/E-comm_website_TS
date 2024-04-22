@@ -70,6 +70,7 @@
 }
 
 .user-profile-box .options{
+
     color: aliceblue;
     font-weight: 400;
 }
@@ -81,6 +82,8 @@
 .user-profile-box .options:first-child {
     font-weight: 700;
     display: flex;
+    word-break:break-all;
+    flex-wrap: wrap;
     justify-content: center;
     color: #212121;
     background-color: aliceblue;

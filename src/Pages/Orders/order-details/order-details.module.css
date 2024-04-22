@@ -30,12 +30,16 @@
 
 .order-item-header .order-quantity-total {
     display: flex;
+    justify-content: right;
     flex: 1;
+    
 }
 
 .order-quantity-total .order-subtotal-heading,
 .order-quantity-total .order-quanity-heading {
     flex: 1;
+    display: flex;
+    justify-content: right;
 }
 
 .order-container .order-total-content {

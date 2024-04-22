@@ -7,9 +7,6 @@ import Moment from 'react-moment';
 
 const OrderDetails = () => {
     const orderDataSelector = useSelector((state: RootState) => state.OrderHistory.orderDetailsData as Record<string, string | number | any>[])
-    console.log(orderDataSelector[0]);
-
-
     return (
         <div className={classes['order-main']}>
             <div className={classes['order-container']}>
@@ -33,7 +30,6 @@ const OrderDetails = () => {
                             <React.Fragment key={index}>
                                 <OrderItems items={item} />
                                 <hr />
-
                             </React.Fragment>
                         ))}
                     </div>

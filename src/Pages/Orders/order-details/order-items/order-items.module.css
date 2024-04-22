@@ -37,14 +37,17 @@
 
 .order-item-content .order-item-subtotal {
     flex: 1;
+    display: flex;
+    justify-content: right;
 }
 
 .order-item-content .order-item-quantity {
     flex: 1;
+    display: flex;
+    justify-content: right;
 }
 .order-item-quantity .order-quantity-manage{
     display: flex;
-    align-items: center;
     gap: 10px;
 }
 

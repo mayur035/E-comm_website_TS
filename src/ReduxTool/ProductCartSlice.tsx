@@ -94,7 +94,11 @@ const initialState: Record<string, [] | string | null> = {
 const ProductCart = createSlice({
     name: 'ProductCart',
     initialState,
-    reducers: {},
+    reducers: {
+        clearCartState:(state)=>{
+            state.cartItems = []
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(postItems.pending, (state) => {
@@ -132,4 +136,5 @@ const ProductCart = createSlice({
     }
 })
 
+export const {clearCartState} = ProductCart.actions
 export default ProductCart.reducer

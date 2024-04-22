@@ -23,6 +23,12 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+
+.checkList .check-brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .filter-price{
     width: 50%;
 }
@@ -35,6 +41,12 @@
     color: #23A6F0;
     cursor: pointer;
 }
+
+.product-filter .filter-by .selected{
+    color: #23A6F0; 
+    font-weight: 700;
+  }
+  
 
 .product-list-main .product-container {
     width: 70%;

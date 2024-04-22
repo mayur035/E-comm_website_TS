@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { ResponseType } from "axios";
 import { ToastFunc } from "../utils/ToastFun";
-import { userProfileType } from "../types/types";
 
 interface userDataType{
-        first_name: string | number;
-        last_name: string | number;
-        phone_no: string | number;
+        firstname: string | number;
+        lastname: string | number;
+        phoneno: string | number;
     }
 
 const initialState: Record<string, string | null | Record<string, string | number | null>> = {
@@ -16,7 +15,7 @@ const initialState: Record<string, string | null | Record<string, string | numbe
 }
 
 //get user details
-export const getUserDetails = createAsyncThunk('users/profile', async (body, thunkApi) => {
+export const getUserDetails = createAsyncThunk<any,void>('users/profile', async () => {
     try {
         const token = localStorage.getItem('token')
         const response = await axios.get(`http://localhost:3001/profile`, { headers: { Authorization: `Bearer ${token}` } })

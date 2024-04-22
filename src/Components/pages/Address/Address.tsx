@@ -7,7 +7,7 @@ import { deleteAddress, getAddress, postAddress, updateAddress } from '../../../
 import { AppDispatch, RootState } from '../../../ReduxTool/State/Store'
 import { ToastFunc } from '../../../utils/ToastFun'
 import { postOrderHistoryData } from '../../../ReduxTool/orderHistorySlice'
-import { clearCart } from '../../../ReduxTool/ProductCartSlice'
+import { clearCart, getItems } from '../../../ReduxTool/ProductCartSlice'
 import { useNavigate } from 'react-router'
 
 
@@ -36,7 +36,6 @@ const Address = () => {
 
     const addressSelector = useSelector((state: RootState) => state.AddressSlice.address as [])
     const cartStatus = useSelector((state: RootState) => state.ProductCart.status)
-    console.log(cartStatus);
 
     const [toggle, setToggle] = useState(true)
     const handleEdit = (address: any) => {
@@ -58,7 +57,8 @@ const Address = () => {
         } else {
             if (cartStatus === 'success') {
                 await dispatch(postOrderHistoryData(selectedAddressId))
-                dispatch(clearCart())
+                await dispatch(clearCart())
+                dispatch(getItems())
                 navigate('/')
                 return ToastFunc("Order confrim", "success")
             } else {
@@ -111,26 +111,27 @@ const Address = () => {
             <div className={classes['main-container']}>
                 <h1>Address</h1>
                 <div className={classes['address-field']}>
-                    {addressSelector && addressSelector?.length === 0 ? (
-                        <p style={{ fontSize: '30px', padding: '30px 0px' }}>No address</p>
-                    ) : (
-                        addressSelector && addressSelector.map((address: Record<string, string | number>) => (
-                            <div key={address.id} className={classes['address']}>
-                                <table width='90%'>
-                                    <tbody>
-
-                                        <tr style={{ cursor: 'pointer' }}>
-                                            <td><input type='radio' name='address' value={address.id} onChange={handleRadioChange} /></td>
-                                            <td>{address.address1},{address.address2},{address.area},{address.city}-{address.pincode},{address.state}</td>
+                    <div className={classes['address']}>
+                        <table width='90%'>
+                            <tbody>
+                                {addressSelector && addressSelector?.length === 0 ? (
+                                    <p style={{ fontSize: '30px', padding: '30px 0px' }}>No address</p>
+                                ) : (
+                                    addressSelector && addressSelector.map((address: Record<string, string | number>) => (
+                                        <tr key={address.id}>
+                                            <td><input style={{ cursor: 'pointer' }} id={address.id.toString()} type='radio' name='address' value={address.id} onChange={handleRadioChange} /></td>
+                                            <td><label style={{ cursor: 'pointer' }} htmlFor={address.id.toString()}>{address.address1},{address.address2},{address.area},{address.city}-{address.pincode},{address.state}</label></td>
                                             <td><IconButton color='warning' onClick={() => handleEdit(address)}><Edit /></IconButton></td>
                                             <td><IconButton color='error' onClick={async () => {
                                                 await dispatch(deleteAddress(Number(address.id)))
                                                 dispatch(getAddress())
                                             }}><Delete /></IconButton></td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>)))}
+                                    )))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                     {addressSelector?.length !== 0 && <div className={classes['btn-container']}>
                         <button className={classes['next']} onClick={handleConfirmAddress}>Confirm Address</button>
                     </div>}
@@ -171,7 +172,7 @@ const Address = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

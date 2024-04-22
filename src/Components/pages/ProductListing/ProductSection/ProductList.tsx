@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import classes from './ProductList.module.css'
 import ProductCard from '../../../UI/Card/ProductCard/Product-card'
-import { FilterList, Minimize } from '@mui/icons-material'
+import { FilterList } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import RespFilter from '../ResponsiveFilter/RespFilter'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,10 +12,17 @@ import 'react-range-slider-input/dist/style.css';
 import { debounce } from 'lodash'
 import { Assets } from '../../../../Assets/Assets'
 import { AppDispatch, RootState } from '../../../../ReduxTool/State/Store'
-import { brandsType, categoriesType, productType, productVariantType } from '../../../../types/types'
+import { brandsType, categoriesType, productType } from '../../../../types/types'
 
+interface filterDataType {
+    colors: [];
+    product: productType
+}
 
 const ProductList: React.FC = () => {
+
+    const [selectedCategory, setSelectedCategory] = useState<null | string | undefined>('All');
+
     const dispatch = useDispatch<AppDispatch>();
     const updateWindowWidth = () => { setWindowWidth(window.innerWidth); };
 
@@ -27,7 +34,7 @@ const ProductList: React.FC = () => {
     const page = useSelector((state: RootState) => state.ProductFilter.page)
     // const [currentPage, setCurrentPage] = useState(page);
 
-    
+
     const [isShow, setIsShow] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
@@ -83,8 +90,7 @@ const ProductList: React.FC = () => {
         }
 
         // Dispatch action to update the filter
-        const nameSlug = name === "All" ? "All" : brands.find((cat:brandsType) => cat.name!.toLowerCase() === name)?.slug;
-        console.log(nameSlug);
+        const nameSlug = name === "All" ? "All" : brands.find((cat: brandsType) => cat.name!.toLowerCase() === name)?.slug;
         dispatch(fetch_filter_product({ filterType: 'brands', filterValue: { checked, nameSlug } }));
         dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
     }
@@ -106,6 +112,7 @@ const ProductList: React.FC = () => {
                     <h3>Filter by</h3>
                     {["All", ...categories.map((category: categoriesType) => category.name)].map((categoryName, index) => (
                         <span
+                            className={selectedCategory === categoryName ? `${classes.selected}` : ''}
                             key={index}
                             data-name='productCategory'
                             data-value={categoryName === "All" ? null : categories.find((cat: categoriesType) => cat.name === categoryName)?.slug}
@@ -113,6 +120,7 @@ const ProductList: React.FC = () => {
                                 const slug = categoryName === "All" ? null : categories.find((cat: categoriesType) => cat.name === categoryName)?.slug;
                                 await dispatch(fetch_filter_product({ filterType: 'category', filterValue: slug }));
                                 dispatch(fetch_filter_product({ filterType: 'pagination', filterValue: { page: 1 } }));
+                                setSelectedCategory(categoryName);
                             }}
                         >
                             {categoryName}
@@ -135,20 +143,21 @@ const ProductList: React.FC = () => {
                     <h4>Brands</h4>
                     <div>
                         <div className={classes.checkList}>
-                            {["All", ...new Set(brands.map((product: brandsType) => product.name))].map((brand: string|undefined, index) => {
+                            {["All", ...new Set(brands.map((product: brandsType) => product.name))].map((brand: string | undefined, index) => {
                                 return (
-                                    <div key={index}>
+                                    <div key={index} className={classes['check-brand']}>
                                         <input
+                                            id={index.toString()}
                                             type="checkbox"
                                             data-name='productBrand'
-                                            data-value={brand === "All" ? 'All' : brands.find((cat:brandsType) => cat.name === brand)?.slug}
+                                            data-value={brand === "All" ? 'All' : brands.find((cat: brandsType) => cat.name === brand)?.slug}
                                             defaultChecked={
                                                 filterBrands.length === 0 ? false : filterBrands.includes(brand!.toLowerCase())
                                             }
                                             name={brand === "All" ? 'All' : brands.find((cat: brandsType) => cat.name === brand)?.slug}
                                             onChange={handleCheckChange}
                                         />
-                                        <label>
+                                        <label style={{cursor:'pointer'}} htmlFor={index.toString()}>
                                             {brand!.toUpperCase()}
                                         </label>
                                     </div>
@@ -203,7 +212,7 @@ const ProductList: React.FC = () => {
                     :
                     <React.Fragment>
                         <div className={classes.product}>
-                            {filterData && filterData.map((product: productType, index: number) => {  
+                            {filterData && filterData.map((product: filterDataType, index: number) => {
                                 if (product) {
                                     return (
                                         <Link key={index} style={{ textDecoration: 'none', margin: 'auto' }} to={`/productDetails?productID=${product?.product?.id}&productName=${product?.product?.name}&productCategory=${product?.product?.categories.name}&productColor=${product?.product?.productVariants?.color}&productSize=${product?.product?.productVariants?.size}`}>
@@ -211,7 +220,7 @@ const ProductList: React.FC = () => {
                                                 key={index}
                                                 Image={{
                                                     src: product.product?.productVariants.image_keys.product_url!,
-                                                    alt:'this is product'
+                                                    alt: 'this is product'
                                                 }}
                                                 productName={product?.product?.name!}
                                                 productBrand={product?.product?.brands.name!}
@@ -219,7 +228,7 @@ const ProductList: React.FC = () => {
                                                 productOriginalPrice={product?.product?.productVariants.mrp!}
                                                 productDiscountPrice={product?.product?.productVariants.discount || 0}
                                                 colors={product?.colors!}
-                                            /> 
+                                            />
                                         </Link>
                                     );
                                 }

@@ -45,6 +45,7 @@ import NoProductFound from './NotFound/NoProductFound.svg'
 import ConfirmOrder from './NotFound/Animation.json'
 import Signup from './register/SignUp.svg'
 import Login from './register/login.svg'
+import empty from './NotFound/Empty.svg'
 
 export const Assets =
 {
@@ -94,7 +95,8 @@ export const Assets =
         AddtoCart:AddtoCart,
         NoProductFound:NoProductFound, 
         Login:Login,
-        Signup:Signup
+        Signup:Signup,
+        Empty:empty
     },
     json:{
         ConfirmOrder:ConfirmOrder

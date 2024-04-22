@@ -55,7 +55,7 @@ const ProductDetails = () => {
             <div className={classes['product-details-content-main']}>
                 <div className={classes['product-details-content-inner']}>
                     <h4>{product?.name}</h4>
-                    <div className={classes.rating}><Rating name="half-rating" defaultValue={2.5} precision={0.5} /><h6>10 reviews</h6></div>
+                    <div className={classes.rating}><Rating name="half-rating" defaultValue={2.5} precision={0.5} readOnly/><h6>10 reviews</h6></div>
                     <div className={classes['availability']}>
                         <h5 className={classes.checkAva}>Availability  : </h5>
                         <h5

@@ -10,6 +10,7 @@ import AddressSlice from '../addressSlice';
 import OrderHistory from '../orderHistorySlice';
 import UISlice from '../uiSlice';
 import BestSellerSlice from '../BestSellerSlice';
+import reviewsSlice from '../reviewsSlice';
 
 
 
@@ -30,7 +31,8 @@ const CombineReducers = combineReducers(
         AddressSlice:AddressSlice,
         OrderHistory:OrderHistory,
         UISlice:UISlice,
-        BestSellerSlice:BestSellerSlice
+        BestSellerSlice:BestSellerSlice,
+        reviewsSlice:reviewsSlice
     }
 )
 const PersistReducer = persistReducer(persistConfig,CombineReducers)
@@ -39,7 +41,7 @@ export const Store = configureStore({
     reducer: PersistReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: {
-                  ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                  ignoredActions: [FLUSH, PAUSE, PERSIST, PURGE, REGISTER],
                 },
     })
 })

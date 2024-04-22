@@ -49,6 +49,9 @@
     padding: 10px;
 }
 
+.form-control .form .input-control>small{
+    color: red;
+}
 @media (max-width:768px) {
     .login-main{
         flex-direction: column;

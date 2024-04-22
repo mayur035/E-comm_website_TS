@@ -1,49 +1,45 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { ResponseType } from "axios";
 import { ToastFunc } from "../utils/ToastFun";
 
-const initialState = {
+const initialState: Record<string, [] | string | null> = {
     orderHistoryData: [],
     orderDetailsData: [],
     status: 'idle',
     error: null
 }
 
-export const getOrderHistoryData: any = createAsyncThunk('order/getOrderHistoryData', async () => {
+export const getOrderHistoryData = createAsyncThunk<any, void>('order/getOrderHistoryData', async () => {
     try {
         const token = localStorage.getItem('token')
         if (token) {
             const response = await axios.get(`http://localhost:3001/order-history`, { headers: { Authorization: `Bearer ${token}` } })
 
-            if (response.status === 200) {
-                return response.data;
-            }
-        } else {
-            ToastFunc('You are not authorized', 'error')
+            if (response.status === 200)
+            return response.data;
+
         }
-    } catch (error:any) {
+    } catch (error: any) {
         if (error.response) {
-            if (error.response.status === 409 || error.response.status === 401) {
+            if (error.response.status === 409 || error.response.status === 401 || error.response.status === 400) {              
                 ToastFunc(error.response.data.message, 'error')
                 throw error.response.data.message;
             }
-    }
+        }
     }
 
 })
-export const postOrderHistoryData: any = createAsyncThunk('order/postOrderHistoryData', async (body) => {
+export const postOrderHistoryData = createAsyncThunk<any, number>('order/postOrderHistoryData', async (body) => {
     try {
         const token = localStorage.getItem('token')
-        if (token) {    
-            const response = await axios.get(`http://localhost:3001/order-history/postOrderHistory?addressId=${body}`,{ headers: { Authorization: `Bearer ${token}` } })
-            
+        if (token) {
+            const response = await axios.get(`http://localhost:3001/order-history/postOrderHistory?addressId=${body}`, { headers: { Authorization: `Bearer ${token}` } })
+
             if (response.status === 200) {
                 return response.data;
             }
-        } else {
-            ToastFunc('You are not authorized', 'error')
         }
-    } catch (error:any) {
+    } catch (error: any) {
         if (error.response) {
             if (error.response.status === 409 || error.response.status === 401) {
                 ToastFunc(error.response.data.message, 'error')
@@ -53,7 +49,7 @@ export const postOrderHistoryData: any = createAsyncThunk('order/postOrderHistor
     }
 })
 
-export const getOrderDatails: any = createAsyncThunk('order/getOrderDetailsData', async (body) => {
+export const getOrderDatails = createAsyncThunk<any, number>('order/getOrderDetailsData', async (body) => {
     const token = localStorage.getItem('token')
 
     try {
@@ -63,12 +59,10 @@ export const getOrderDatails: any = createAsyncThunk('order/getOrderDetailsData'
             if (response.status === 200) {
                 return response.data;
             }
-        } else {
-            ToastFunc('You are not authorized', 'error')
         }
-    } catch (error:any) {
+    } catch (error: any) {
         if (error.response) {
-            if (error.response.status === 409 || error.response.status === 401) {
+            if (error.response.status === 409 || error.response.status === 401 || error.response.status === 400) {
                 ToastFunc(error.response.data.message, 'error')
                 throw error.response.data.message;
             }
@@ -92,7 +86,7 @@ const OrderHistory = createSlice({
             })
             .addCase(getOrderHistoryData.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error;
+                state.error = action.error as string;
             })
             .addCase(getOrderDatails.pending, (state) => {
                 state.status = 'loading';
@@ -103,7 +97,7 @@ const OrderHistory = createSlice({
             })
             .addCase(getOrderDatails.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error;
+                state.error = action.error as string;
             })
     }
 })
